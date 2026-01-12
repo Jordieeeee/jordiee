@@ -194,7 +194,7 @@ function NavBar() {
 	];
 
 	return (
-		<nav className="fixed bottom-0 left-0 right-0 flex items-center justify-center pb-6 sm:pb-8 md:pb-12 pointer-events-none">
+		<nav className="fixed bottom-0 left-0 right-0 z-50 flex items-center justify-center pb-6 sm:pb-8 md:pb-12 pointer-events-none">
 			<style>{`
 				.glass-nav {
 					background: #ffffff1a;

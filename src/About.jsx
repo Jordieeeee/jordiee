@@ -1,5 +1,6 @@
 import profileImg from "./assets/me/jords.png"; // change path if needed
 import { motion } from "framer-motion";
+import { FiUser } from "react-icons/fi";
 
 function About() {
 	const container = {
@@ -51,12 +52,15 @@ function About() {
 						whileInView="visible"
 						viewport={{ once: true }}
 					>
-						<motion.h1
+						<motion.div
 							variants={item}
-							className="text-4xl md:text-5xl font-semibold tracking-tight text-gray-900 mb-5"
+							className="flex items-center gap-3 mb-5"
 						>
-							About Me
-						</motion.h1>
+							<FiUser className="text-4xl md:text-5xl text-gray-900" />
+							<motion.h1 className="text-4xl md:text-5xl font-semibold tracking-tight text-gray-900">
+								About Me
+							</motion.h1>
+						</motion.div>
 
 						<motion.p
 							variants={item}
@@ -90,7 +94,7 @@ function About() {
 								<span className="w-2 h-2 rounded-full bg-gray-900" />
 								<motion.h2
 									variants={item}
-									className="text-lg font-semibold text-gray-900 tracking-wide"
+									className="text-xl font-semibold text-gray-900 tracking-wide"
 								>
 									Tech Stack
 								</motion.h2>
@@ -98,7 +102,7 @@ function About() {
 
 							{/* UI / UX */}
 							<div>
-								<p className="text-sm font-medium text-gray-700 mb-2">
+								<p className="text-medium font-medium text-gray-700 mb-2">
 									UI / UX
 								</p>
 								<div className="flex flex-wrap gap-2">
@@ -124,7 +128,7 @@ function About() {
 
 							{/* Frontend */}
 							<div>
-								<p className="text-sm font-medium text-gray-700 mb-2">
+								<p className="text-medium font-medium text-gray-700 mb-2">
 									Frontend
 								</p>
 								<div className="flex flex-wrap gap-2">
@@ -152,7 +156,7 @@ function About() {
 
 							{/* Backend */}
 							<div>
-								<p className="text-sm font-medium text-gray-700 mb-2">
+								<p className="text-medium font-medium text-gray-700 mb-2">
 									Backend
 								</p>
 								<div className="flex flex-wrap gap-2">
@@ -178,7 +182,9 @@ function About() {
 
 							{/* Cloud */}
 							<div>
-								<p className="text-sm font-medium text-gray-700 mb-2">Cloud</p>
+								<p className="text-medium font-medium text-gray-700 mb-2">
+									Cloud
+								</p>
 								<div className="flex flex-wrap gap-2">
 									{["Docker", "XAMPP"].map((tool) => (
 										<motion.span
@@ -202,7 +208,7 @@ function About() {
 
 							{/* CMS & No-Code */}
 							<div>
-								<p className="text-sm font-medium text-gray-700 mb-2">
+								<p className="text-medium font-medium text-gray-700 mb-2">
 									CMS & No-Code
 								</p>
 								<div className="flex flex-wrap gap-2">
@@ -228,7 +234,7 @@ function About() {
 
 							{/* Developer Tools */}
 							<div>
-								<p className="text-sm font-medium text-gray-700 mb-2">
+								<p className="text-medium font-medium text-gray-700 mb-2">
 									Developer Tools
 								</p>
 								<div className="flex flex-wrap gap-2">
