@@ -4,22 +4,29 @@ function NavBar() {
 	const [active, setActive] = useState("home");
 
 	useEffect(() => {
-		const sections = document.querySelectorAll("section");
+		const sections = Array.from(document.querySelectorAll("section[id]"));
 
-		const observer = new IntersectionObserver(
-			(entries) => {
-				entries.forEach((entry) => {
-					if (entry.isIntersecting) {
-						setActive(entry.target.id);
-					}
-				});
-			},
-			{ threshold: 0.6 }
-		);
+		if (sections.length === 0) return;
 
-		sections.forEach((section) => observer.observe(section));
+		const handleScroll = () => {
+			const scrollPosition = window.scrollY + window.innerHeight / 2;
+			let currentSection = sections[0].id;
+			for (let section of sections) {
+				const rect = section.getBoundingClientRect();
+				const sectionTop = window.scrollY + rect.top;
+				if (scrollPosition >= sectionTop) {
+					currentSection = section.id;
+				}
+			}
+			setActive(currentSection);
+		};
 
-		return () => observer.disconnect();
+		window.addEventListener("scroll", handleScroll, { passive: true });
+		handleScroll(); // set on mount
+
+		return () => {
+			window.removeEventListener("scroll", handleScroll);
+		};
 	}, []);
 
 	const navItems = [

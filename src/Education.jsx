@@ -1,5 +1,197 @@
 import { motion } from "framer-motion";
 import { FiBookOpen } from "react-icons/fi";
+import { useState, useEffect } from "react";
+import portfolio1 from "./assets/proj/1stPortfolio/portfolio1.png";
+import portfolio2 from "./assets/proj/1stPortfolio/portfolio2.png";
+import portfolio3 from "./assets/proj/1stPortfolio/portfolio3.png";
+import portfolio4 from "./assets/proj/1stPortfolio/portfolio4.png";
+import thrift1 from "./assets/proj/thriftStore/img1.png";
+import thrift2 from "./assets/proj/thriftStore/img2.png";
+import thrift3 from "./assets/proj/thriftStore/img3.png";
+import thrift4 from "./assets/proj/thriftStore/img4.png";
+import thrift5 from "./assets/proj/thriftStore/img5.png";
+import time1 from "./assets/proj/timeSched/TSS1.jpeg";
+import time2 from "./assets/proj/timeSched/TSS2.jpeg";
+import time3 from "./assets/proj/timeSched/TSS3.jpeg";
+import cafe1 from "./assets/proj/batCafe/batCafe1.png";
+import cafe2 from "./assets/proj/batCafe/batCafe2.png";
+import cafe3 from "./assets/proj/batCafe/batCafe3.png";
+import cafe4 from "./assets/proj/batCafe/batCafe4.png";
+import cafe5 from "./assets/proj/batCafe/batCafe5.png";
+import cafe6 from "./assets/proj/batCafe/batCafe6.png";
+import cafe7 from "./assets/proj/batCafe/batCafe7.png";
+import cafe8 from "./assets/proj/batCafe/batCafe8.png";
+import cafe9 from "./assets/proj/batCafe/batCafe9.png";
+import cafe10 from "./assets/proj/batCafe/batCafe10.png";
+import rental1 from "./assets/proj/vehiRental/vRental1.png";
+import rental2 from "./assets/proj/vehiRental/vRental2.png";
+import rental3 from "./assets/proj/vehiRental/vRental3.png";
+import rental4 from "./assets/proj/vehiRental/vRental4.png";
+import rental5 from "./assets/proj/vehiRental/vRental5.png";
+import rental6 from "./assets/proj/vehiRental/vRental6.png";
+import rental7 from "./assets/proj/vehiRental/vRental7.png";
+import rental8 from "./assets/proj/vehiRental/vRental8.png";
+import rental9 from "./assets/proj/vehiRental/vRental9.png";
+import rental10 from "./assets/proj/vehiRental/vRental10.png";
+
+// import updated1 from "./assets/proj/newPortfolio/up1.png";
+// import updated2 from "./assets/proj/newPortfolio/up2.png";
+
+const ImageCarousel = ({ images, title }) => {
+	const [currentIndex, setCurrentIndex] = useState(0);
+
+	useEffect(() => {
+		const interval = setInterval(() => {
+			setCurrentIndex((prev) => (prev + 1) % images.length);
+		}, 3000);
+		return () => clearInterval(interval);
+	}, [images.length]);
+
+	return (
+		<motion.div
+			whileHover={{ scale: 1.03, y: -6 }}
+			transition={{ type: "spring", stiffness: 200, damping: 18 }}
+			className="relative group"
+		>
+			<div
+				className="
+					relative
+					w-full
+					max-w-xs
+					sm:max-w-sm
+					md:max-w-md
+					aspect-[4/3]
+					sm:aspect-[16/10]
+					overflow-hidden
+					rounded-2xl
+					mx-auto
+				"
+			>
+				<motion.img
+					key={currentIndex}
+					initial={{ opacity: 0, scale: 1.05 }}
+					animate={{ opacity: 1, scale: 1 }}
+					transition={{ duration: 0.6, ease: "easeOut" }}
+					src={images[currentIndex]}
+					alt={`${title} - Image ${currentIndex + 1}`}
+					className="w-full h-full object-cover hover:shadow-xl transition-shadow duration-500"
+				/>
+				{/* Prev Button */}
+				<button
+					onClick={() =>
+						setCurrentIndex(
+							(prev) => (prev - 1 + images.length) % images.length
+						)
+					}
+					className="absolute left-3 top-1/2 -translate-y-1/2
+					bg-white/70 hover:bg-white
+					backdrop-blur-md rounded-full p-2
+					shadow-md transition
+					md:p-3 cursor-pointer rounded-2xl"
+				>
+					<svg
+						fill="#000000"
+						height="15px"
+						width="15px"
+						version="1.1"
+						id="Layer_1"
+						xmlns="http://www.w3.org/2000/svg"
+						xmlns:xlink="http://www.w3.org/1999/xlink"
+						viewBox="0 0 512 512"
+						xml:space="preserve"
+						stroke="#000000"
+						stroke-width="51.2"
+					>
+						<g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+						<g
+							id="SVGRepo_tracerCarrier"
+							stroke-linecap="round"
+							stroke-linejoin="round"
+						></g>
+						<g id="SVGRepo_iconCarrier">
+							{" "}
+							<g>
+								{" "}
+								<g>
+									{" "}
+									<path d="M476.92,493.76L240.333,256.32L476.707,18.24c4.16-4.16,4.16-10.88,0-15.04C474.68,1.067,472.013,0,469.24,0H286.627 c-2.88,0-5.547,1.173-7.573,3.2L35.107,248.853c-4.16,4.16-4.16,10.88,0,15.04l244.16,245.013 c2.027,2.027,4.693,3.093,7.573,3.093h182.507c5.867,0,10.667-4.8,10.667-10.667C480.013,498.56,478.947,495.787,476.92,493.76z M291.213,490.667L57.72,256.32L291,21.333h152.533L217.72,248.853c-4.16,4.16-4.16,10.88,0,15.04l225.92,226.773H291.213z"></path>{" "}
+								</g>{" "}
+							</g>{" "}
+						</g>
+					</svg>
+				</button>
+
+				{/* Next Button */}
+				<button
+					onClick={() => setCurrentIndex((prev) => (prev + 1) % images.length)}
+					className="absolute right-3 top-1/2 -translate-y-1/2
+					bg-white/70 hover:bg-white
+					backdrop-blur-md rounded-full p-2
+					shadow-md transition
+					md:p-3 cursor-pointer rounded-2xl"
+				>
+					<svg
+						fill="#000000"
+						height="15px"
+						width="15px"
+						version="1.1"
+						id="Layer_1"
+						xmlns="http://www.w3.org/2000/svg"
+						xmlns:xlink="http://www.w3.org/1999/xlink"
+						viewBox="0 0 511.893 511.893"
+						xml:space="preserve"
+						stroke="#000000"
+						stroke-width="51.189299999999996"
+					>
+						<g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+						<g
+							id="SVGRepo_tracerCarrier"
+							stroke-linecap="round"
+							stroke-linejoin="round"
+						></g>
+						<g id="SVGRepo_iconCarrier">
+							{" "}
+							<g>
+								{" "}
+								<g>
+									{" "}
+									<path d="M476.84,248.107L233.64,3.2c-2.027-2.027-4.693-3.2-7.573-3.2H42.6c-5.867,0-10.667,4.8-10.667,10.667 c0,2.88,1.173,5.547,3.093,7.573l237.76,237.44L35.24,493.76c-4.16,4.16-4.16,10.88,0,15.04c2.027,2.027,4.693,3.093,7.573,3.093 H226.28c2.88,0,5.547-1.173,7.573-3.2L476.84,263.04C481,258.987,481,252.267,476.84,248.107z M221.8,490.667H68.52 l226.987-227.52c4.16-4.16,4.16-10.88,0-15.04L68.413,21.333h153.28l232.64,234.347L221.8,490.667z"></path>{" "}
+								</g>{" "}
+							</g>{" "}
+						</g>
+					</svg>
+				</button>
+
+				{/* ✨ Mouse-follow shine overlay (PUT IT HERE) */}
+				<div
+					className="absolute inset-0 opacity-0 group-hover:opacity-100
+					transition duration-500
+					bg-gradient-to-tr from-transparent via-white/10 to-transparent
+					pointer-events-none"
+				/>
+
+				<div className="absolute inset-0 rounded-2xl ring-1 ring-white/30 pointer-events-none" />
+
+				{/* Image Counter */}
+				<div className="absolute bottom-4 right-4 px-3 py-1 rounded-full bg-white/20 backdrop-blur-md border border-white/30 text-white text-xs font-medium">
+					{currentIndex + 1} / {images.length}
+				</div>
+
+				{/* Scroll Indicators */}
+				<div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex gap-2">
+					{images.map((_, index) => (
+						<motion.div
+							key={index}
+							className={`h-1.5 rounded-full transition-all duration-300 ${
+								index === currentIndex ? "w-6 bg-white/80" : "w-1.5 bg-white/40"
+							}`}
+						/>
+					))}
+				</div>
+			</div>
+		</motion.div>
+	);
+};
 
 function Projects() {
 	const container = {
@@ -21,11 +213,12 @@ function Projects() {
 	};
 
 	const badge = {
-		hidden: { opacity: 0, scale: 0.9 },
+		hidden: { opacity: 0, y: 8, filter: "blur(4px)" },
 		visible: {
 			opacity: 1,
-			scale: 1,
-			transition: { duration: 0.3 },
+			y: 0,
+			filter: "blur(0px)",
+			transition: { duration: 0.4, ease: "easeOut" },
 		},
 	};
 
@@ -71,230 +264,845 @@ function Projects() {
 					shadow-[0_20px_60px_-15px_rgba(0,0,0,0.25)]"
 				>
 					<div className="absolute inset-0 -z-10 rounded-3xl bg-gradient-to-br from-white/40 via-transparent to-white/10" />
-
+					<motion.div variants={item} className="flex items-center gap-3 mb-10">
+						<FiBookOpen className="text-4xl md:text-5xl text-gray-900" />
+						<motion.h2
+							initial={{ opacity: 0, y: 20, letterSpacing: "0.2em" }}
+							whileInView={{ opacity: 1, y: 0, letterSpacing: "0em" }}
+							transition={{ duration: 0.8, ease: "easeOut" }}
+							className="text-4xl md:text-4xl font-semibold tracking-tight text-gray-900"
+						>
+							Educational Journey
+						</motion.h2>
+					</motion.div>
 					<motion.div
-						variants={container}
+						variants={{
+							hidden: {},
+							visible: { transition: { staggerChildren: 0.08 } },
+						}}
 						initial="hidden"
 						whileInView="visible"
 						viewport={{ once: true }}
+						className="flex flex-wrap gap-3"
 					>
 						<motion.div
 							variants={item}
-							className="flex items-center gap-3 mb-10"
-						>
-							<FiBookOpen className="text-4xl md:text-5xl text-gray-900" />
-							<motion.h2 className="text-4xl md:text-5xl font-semibold tracking-tight text-gray-900">
-								Recent Projects
-							</motion.h2>
-						</motion.div>
-						<motion.div
-							variants={item}
-							className="w-full h-px bg-gradient-to-r from-transparent via-gray-300 to-transparent my-8"
+							className="w-full h-px bg-gradient-to-r from-transparent via-gray-300 to-transparent mb-8"
 						/>
 					</motion.div>
+					{/* Education Overview */}
 
-					{/* Project List */}
-					<motion.div
-						variants={projectContainer}
-						initial="hidden"
-						whileInView="visible"
-						viewport={{ once: true, amount: 0.25 }}
-						className="space-y-16"
-					>
-						{/* Project 1 */}
-						<motion.div
-							variants={projectItemLeft}
-							className="grid md:grid-cols-2 gap-14 items-center"
+					<motion.div variants={item} className="flex items-center gap-3 mb-10">
+						<svg
+							width="48px"
+							height="48px"
+							viewBox="0 0 24 24"
+							fill="none"
+							xmlns="http://www.w3.org/2000/svg"
 						>
-							<motion.div
-								whileHover={{ scale: 1.03 }}
-								transition={{ type: "spring", stiffness: 200, damping: 18 }}
-								className="relative group"
-							>
-								<img
-									src="/projects/portfolio.png"
-									alt="Portfolio Website"
-									className="rounded-2xl transition-transform duration-500 group-hover:scale-[1.02]"
-								/>
-								<div className="absolute inset-0 rounded-2xl ring-1 ring-black/5 pointer-events-none" />
-							</motion.div>
-
-							<div>
-								<motion.h3
-									initial={{ opacity: 0, y: 12 }}
-									whileInView={{ opacity: 1, y: 0 }}
-									viewport={{ once: true }}
-									transition={{ delay: 0.2, duration: 0.5 }}
-									className="text-2xl font-semibold mb-4 tracking-tight"
-								>
-									Portfolio Website
-								</motion.h3>
-								<motion.p
-									initial={{ opacity: 0, y: 12 }}
-									whileInView={{ opacity: 1, y: 0 }}
-									viewport={{ once: true }}
-									transition={{ delay: 0.3, duration: 0.5 }}
-									className="text-gray-600 leading-relaxed mb-6 max-w-lg"
-								>
-									{" "}
-									Built with HTML, CSS, and Tailwind. Fully responsive personal
-									portfolio with a clean and modern user interface.
-								</motion.p>
-
-								<div className="flex flex-wrap gap-3">
-									{["HTML", "CSS", "Tailwind"].map((tool) => (
-										<motion.span
-											variants={badge}
-											whileHover={{ scale: 1.05 }}
-											className="
-											px-4 py-1.5 rounded-full text-sm font-medium
-											bg-white/60 backdrop-blur-md
-											border border-white/40
-											text-gray-700
-											shadow-sm
-											hover:bg-white/80
-											transition
-											"
-										>
-											{tool}
-										</motion.span>
-									))}
-								</div>
-							</div>
-						</motion.div>
-
-						{/* Divider */}
-						<div className="h-px bg-gray-300/70" />
-
-						{/* Project 2 */}
-						<motion.div
-							variants={projectItemRight}
-							className="grid md:grid-cols-2 gap-14 items-center"
+							<g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+							<g
+								id="SVGRepo_tracerCarrier"
+								stroke-linecap="round"
+								stroke-linejoin="round"
+							></g>
+							<g id="SVGRepo_iconCarrier">
+								{" "}
+								<path
+									d="M7 8L3 11.6923L7 16M17 8L21 11.6923L17 16M14 4L10 20"
+									stroke="#000000"
+									stroke-width="2.04"
+									stroke-linecap="round"
+									stroke-linejoin="round"
+								></path>{" "}
+							</g>
+						</svg>
+						<motion.h2
+							initial={{ opacity: 0, y: 20, letterSpacing: "0.2em" }}
+							whileInView={{ opacity: 1, y: 0, letterSpacing: "0em" }}
+							transition={{ duration: 0.8, ease: "easeOut" }}
+							className="text-4xl md:text-3xl font-semibold tracking-tight text-gray-900"
 						>
-							<motion.div
-								whileHover={{ scale: 1.03 }}
-								transition={{ type: "spring", stiffness: 200, damping: 18 }}
-								className="relative group md:order-2"
-							>
-								<img
-									src="/projects/scheduling.png"
-									alt="Time Scheduling System"
-									className="rounded-2xl transition-transform duration-500 group-hover:scale-[1.02]"
-								/>
-								<div className="absolute inset-0 rounded-2xl ring-1 ring-black/5 pointer-events-none" />
-							</motion.div>
-
-							<div>
-								<motion.h3
-									initial={{ opacity: 0, y: 12 }}
-									whileInView={{ opacity: 1, y: 0 }}
-									viewport={{ once: true }}
-									transition={{ delay: 0.2, duration: 0.5 }}
-									className="text-2xl font-semibold mb-4 tracking-tight"
-								>
-									{" "}
-									Time Scheduling System
-								</motion.h3>
-								<motion.p
-									initial={{ opacity: 0, y: 12 }}
-									whileInView={{ opacity: 1, y: 0 }}
-									viewport={{ once: true }}
-									transition={{ delay: 0.3, duration: 0.5 }}
-									className="text-gray-600 leading-relaxed mb-6 max-w-lg"
-								>
-									{" "}
-									Final project developed using Java (OOP) and MySQL, designed
-									to efficiently manage schedules and data.
-								</motion.p>
-
-								<div className="flex flex-wrap gap-3">
-									{["Java", "MySQL", "OOP"].map((tool) => (
-										<motion.span
-											variants={badge}
-											whileHover={{ scale: 1.05 }}
-											className="
-											px-4 py-1.5 rounded-full text-sm font-medium
-											bg-white/60 backdrop-blur-md
-											border border-white/40
-											text-gray-700
-											shadow-sm
-											hover:bg-white/80
-											transition
-											"
-										>
-											{tool}
-										</motion.span>
-									))}
-								</div>
-							</div>
-						</motion.div>
-
-						{/* Divider */}
-						<div className="h-px bg-gray-300/70" />
-
-						{/* Project 3 */}
-						<motion.div
-							variants={projectItemLeft}
-							className="grid md:grid-cols-2 gap-14 items-center"
-						>
-							<motion.div
-								whileHover={{ scale: 1.03 }}
-								transition={{ type: "spring", stiffness: 200, damping: 18 }}
-								className="relative group"
-							>
-								<img
-									src="/projects/thrift.png"
-									alt="Online Thrift Shop"
-									className="rounded-2xl transition-transform duration-500 group-hover:scale-[1.02]"
-								/>
-								<div className="absolute inset-0 rounded-2xl ring-1 ring-black/5 pointer-events-none" />
-							</motion.div>
-
-							<div>
-								<motion.h3
-									initial={{ opacity: 0, y: 12 }}
-									whileInView={{ opacity: 1, y: 0 }}
-									viewport={{ once: true }}
-									transition={{ delay: 0.2, duration: 0.5 }}
-									className="text-2xl font-semibold mb-4 tracking-tight"
-								>
-									{" "}
-									Online Thrift Shop
-								</motion.h3>
-								<motion.p
-									initial={{ opacity: 0, y: 12 }}
-									whileInView={{ opacity: 1, y: 0 }}
-									viewport={{ once: true }}
-									transition={{ delay: 0.3, duration: 0.5 }}
-									className="text-gray-600 leading-relaxed mb-6 max-w-lg"
-								>
-									{" "}
-									A web-based thrift store built using HTML, CSS, Tailwind, and
-									MySQL, featuring a clean and user-friendly interface.
-								</motion.p>
-
-								<div className="flex flex-wrap gap-3">
-									{["HTML", "CSS", "Tailwind", "MySQL"].map((tool) => (
-										<motion.span
-											variants={badge}
-											whileHover={{ scale: 1.05 }}
-											className="
-											px-4 py-1.5 rounded-full text-sm font-medium
-											bg-white/60 backdrop-blur-md
-											border border-white/40
-											text-gray-700
-											shadow-sm
-											hover:bg-white/80
-											transition
-											"
-										>
-											{tool}
-										</motion.span>
-									))}
-								</div>
-							</div>
-						</motion.div>
+							Recent Projects
+						</motion.h2>
 					</motion.div>
+
+					<motion.div
+						variants={item}
+						className="w-full h-px bg-gradient-to-r from-transparent via-gray-300 to-transparent my-8"
+					/>
+
+					{/* Timeline Projects Section */}
+					<div className="relative">
+						{/* Vertical Timeline Line - Desktop (center) */}
+						<div className="hidden md:block absolute left-1/2 transform -translate-x-1/2 w-0.5 h-full bg-gradient-to-b from-gray-300 via-gray-400 to-gray-300 z-0"></div>
+
+						{/* Mobile Timeline Line - Right side */}
+						<div className="md:hidden absolute right-0 w-0.5 h-full bg-gradient-to-b from-gray-300 via-gray-400 to-gray-300 z-0"></div>
+
+						{/* Project List with Timeline */}
+						<motion.div
+							variants={projectContainer}
+							initial="hidden"
+							whileInView="visible"
+							viewport={{ once: true, amount: 0.15 }}
+							className="space-y-24 md:space-y-32 relative"
+						>
+							{/* Project 1: Time Scheduling System - 2nd yr 1st Sem 2024 (Left) */}
+							<motion.div variants={projectItemLeft} className="relative">
+								{/* Timeline Dot - Desktop (center) */}
+								<motion.div
+									initial={{ scale: 0, opacity: 0 }}
+									whileInView={{ scale: 1, opacity: 1 }}
+									viewport={{ once: true }}
+									transition={{ duration: 0.5, delay: 0.3 }}
+									className="hidden md:block absolute left-1/2 transform -translate-x-1/2 w-4 h-4 bg-gray-700 rounded-full border-4 border-white shadow-lg z-10"
+								/>
+								{/* Timeline Dot - Mobile (right) */}
+								<motion.div
+									initial={{ scale: 0, opacity: 0 }}
+									whileInView={{ scale: 1, opacity: 1 }}
+									viewport={{ once: true }}
+									transition={{ duration: 0.5, delay: 0.3 }}
+									className="md:hidden absolute right-0 transform translate-x-1/2 w-4 h-4 bg-gray-700 rounded-full border-4 border-white shadow-lg z-10"
+								/>
+
+								{/* Date Badge - Desktop (center) */}
+								<motion.div
+									initial={{ opacity: 0, x: -20 }}
+									whileInView={{ opacity: 1, x: 0 }}
+									viewport={{ once: true }}
+									transition={{ duration: 0.6, delay: 0.2 }}
+									className="hidden md:block absolute left-1/2 transform -translate-x-1/2 -translate-y-8 px-4 py-1.5 rounded-full bg-white/80 backdrop-blur-md border border-white/50 text-sm font-semibold text-gray-700 shadow-md whitespace-nowrap z-20"
+								>
+									2nd Yr 1st Sem 2024
+								</motion.div>
+								{/* Date Badge - Mobile (right) */}
+								<motion.div
+									initial={{ opacity: 0, x: 20 }}
+									whileInView={{ opacity: 1, x: 0 }}
+									viewport={{ once: true }}
+									transition={{ duration: 0.6, delay: 0.2 }}
+									className="md:hidden absolute right-0 transform translate-x-1/2 -translate-y-8 px-4 py-1.5 rounded-full bg-white/80 backdrop-blur-md border border-white/50 text-sm font-semibold text-gray-700 shadow-md whitespace-nowrap z-20"
+								>
+									2nd Yr 1st Sem 2024
+								</motion.div>
+
+								{/* Glow background */}
+								<motion.div
+									aria-hidden
+									initial={{ scale: 0.9, opacity: 0 }}
+									whileInView={{ scale: 1, opacity: 1 }}
+									viewport={{ once: true }}
+									transition={{ duration: 1.2, ease: "easeOut" }}
+									className="absolute -inset-6 rounded-3xl bg-gradient-to-br from-white/40 via-white/10 to-transparent blur-2xl -z-10"
+								/>
+
+								{/* Project content - Desktop: Image left, Timeline center, Description right */}
+								<div className="hidden md:flex gap-4 items-center relative pt-8">
+									<div className="w-[45%] pr-6">
+										<ImageCarousel
+											images={[time1, time2, time3]}
+											title="Time Scheduling System"
+										/>
+									</div>
+									<div className="w-[10%] shrink-0"></div>
+									<div className="w-[45%] pl-6">
+										<motion.h3
+											initial={{ opacity: 0, y: 12 }}
+											whileInView={{ opacity: 1, y: 0 }}
+											viewport={{ once: true }}
+											transition={{ delay: 0.2, duration: 0.5 }}
+											className="text-2xl font-semibold mb-4 tracking-tight"
+										>
+											Time Scheduling System
+										</motion.h3>
+										<motion.p
+											initial={{ opacity: 0, y: 12 }}
+											whileInView={{ opacity: 1, y: 0 }}
+											viewport={{ once: true }}
+											transition={{ delay: 0.3, duration: 0.5 }}
+											className="text-gray-600 leading-relaxed mb-6 max-w-lg"
+										>
+											A final project developed using Java with Object-Oriented
+											Programming principles and MySQL, designed to efficiently
+											manage schedules, store data, and streamline time-based
+											operations.
+										</motion.p>
+										<div className="flex flex-wrap gap-3">
+											{["Java", "MySQL", "OOP"].map((tool) => (
+												<motion.span
+													key={tool}
+													variants={badge}
+													whileHover={{ scale: 1.05 }}
+													className="px-4 py-1.5 rounded-full text-sm font-medium bg-white/60 backdrop-blur-md border border-white/40 text-gray-700 shadow-sm hover:bg-white/80 transition"
+												>
+													{tool}
+												</motion.span>
+											))}
+										</div>
+									</div>
+								</div>
+
+								{/* Mobile layout: Content left, Timeline right */}
+								<div className="md:hidden flex gap-4 pr-8">
+									<div className="flex-1 space-y-4">
+										<ImageCarousel
+											images={[time1, time2, time3]}
+											title="Time Scheduling System"
+										/>
+										<div>
+											<motion.h3
+												initial={{ opacity: 0, y: 12 }}
+												whileInView={{ opacity: 1, y: 0 }}
+												viewport={{ once: true }}
+												transition={{ delay: 0.2, duration: 0.5 }}
+												className="text-2xl font-semibold mb-4 tracking-tight"
+											>
+												Time Scheduling System
+											</motion.h3>
+											<motion.p
+												initial={{ opacity: 0, y: 12 }}
+												whileInView={{ opacity: 1, y: 0 }}
+												viewport={{ once: true }}
+												transition={{ delay: 0.3, duration: 0.5 }}
+												className="text-gray-600 leading-relaxed mb-6"
+											>
+												A final project developed using Java with
+												Object-Oriented Programming principles and MySQL,
+												designed to efficiently manage schedules, store data,
+												and streamline time-based operations.
+											</motion.p>
+											<div className="flex flex-wrap gap-3">
+												{["Java", "MySQL", "OOP"].map((tool) => (
+													<motion.span
+														key={tool}
+														variants={badge}
+														whileHover={{ scale: 1.05 }}
+														className="px-4 py-1.5 rounded-full text-sm font-medium bg-white/60 backdrop-blur-md border border-white/40 text-gray-700 shadow-sm hover:bg-white/80 transition"
+													>
+														{tool}
+													</motion.span>
+												))}
+											</div>
+										</div>
+									</div>
+								</div>
+							</motion.div>
+
+							{/* Project 2: Online Thrift Shop - 2nd yr 2nd Sem 2025 (Right) */}
+							<motion.div variants={projectItemRight} className="relative">
+								{/* Timeline Dot - Desktop (center) */}
+								<motion.div
+									initial={{ scale: 0, opacity: 0 }}
+									whileInView={{ scale: 1, opacity: 1 }}
+									viewport={{ once: true }}
+									transition={{ duration: 0.5, delay: 0.3 }}
+									className="hidden md:block absolute left-1/2 transform -translate-x-1/2 w-4 h-4 bg-gray-700 rounded-full border-4 border-white shadow-lg z-10"
+								/>
+								{/* Timeline Dot - Mobile (right) */}
+								<motion.div
+									initial={{ scale: 0, opacity: 0 }}
+									whileInView={{ scale: 1, opacity: 1 }}
+									viewport={{ once: true }}
+									transition={{ duration: 0.5, delay: 0.3 }}
+									className="md:hidden absolute right-0 transform translate-x-1/2 w-4 h-4 bg-gray-700 rounded-full border-4 border-white shadow-lg z-10"
+								/>
+
+								{/* Date Badge - Desktop (center) */}
+								<motion.div
+									initial={{ opacity: 0, x: 20 }}
+									whileInView={{ opacity: 1, x: 0 }}
+									viewport={{ once: true }}
+									transition={{ duration: 0.6, delay: 0.2 }}
+									className="hidden md:block absolute left-1/2 transform -translate-x-1/2 -translate-y-8 px-4 py-1.5 rounded-full bg-white/80 backdrop-blur-md border border-white/50 text-sm font-semibold text-gray-700 shadow-md whitespace-nowrap z-20"
+								>
+									2nd Yr 2nd Sem 2025
+								</motion.div>
+								{/* Date Badge - Mobile (right) */}
+								<motion.div
+									initial={{ opacity: 0, x: 20 }}
+									whileInView={{ opacity: 1, x: 0 }}
+									viewport={{ once: true }}
+									transition={{ duration: 0.6, delay: 0.2 }}
+									className="md:hidden absolute right-0 transform translate-x-1/2 -translate-y-8 px-4 py-1.5 rounded-full bg-white/80 backdrop-blur-md border border-white/50 text-sm font-semibold text-gray-700 shadow-md whitespace-nowrap z-20"
+								>
+									2nd Yr 2nd Sem 2025
+								</motion.div>
+
+								{/* Glow background */}
+								<motion.div
+									aria-hidden
+									initial={{ scale: 0.9, opacity: 0 }}
+									whileInView={{ scale: 1, opacity: 1 }}
+									viewport={{ once: true }}
+									transition={{ duration: 1.2, ease: "easeOut" }}
+									className="absolute -inset-6 rounded-3xl bg-gradient-to-br from-white/40 via-white/10 to-transparent blur-2xl -z-10"
+								/>
+
+								{/* Project content - Desktop: Description left, Timeline center, Image right */}
+								<div className="hidden md:flex gap-4 items-center relative pt-8">
+									<div className="w-[45%] pr-6">
+										<motion.h3
+											initial={{ opacity: 0, y: 12 }}
+											whileInView={{ opacity: 1, y: 0 }}
+											viewport={{ once: true }}
+											transition={{ delay: 0.2, duration: 0.5 }}
+											className="text-2xl font-semibold mb-4 tracking-tight"
+										>
+											Online Thrift Shop
+										</motion.h3>
+										<motion.p
+											initial={{ opacity: 0, y: 12 }}
+											whileInView={{ opacity: 1, y: 0 }}
+											viewport={{ once: true }}
+											transition={{ delay: 0.3, duration: 0.5 }}
+											className="text-gray-600 leading-relaxed mb-6 max-w-lg"
+										>
+											A web-based online thrift shop built using HTML, CSS,
+											Tailwind CSS, and MySQL, featuring a user-friendly
+											interface for browsing products and managing inventory
+											data.
+										</motion.p>
+										<div className="flex flex-wrap gap-3">
+											{["HTML", "CSS", "Tailwind", "MySQL"].map((tool) => (
+												<motion.span
+													key={tool}
+													variants={badge}
+													whileHover={{ scale: 1.05 }}
+													className="px-4 py-1.5 rounded-full text-sm font-medium bg-white/60 backdrop-blur-md border border-white/40 text-gray-700 shadow-sm hover:bg-white/80 transition"
+												>
+													{tool}
+												</motion.span>
+											))}
+										</div>
+									</div>
+									<div className="w-[10%] shrink-0"></div>
+									<div className="w-[45%] pl-6">
+										<ImageCarousel
+											images={[thrift1, thrift2, thrift3, thrift4, thrift5]}
+											title="Online Thrift Shop"
+										/>
+									</div>
+								</div>
+
+								{/* Mobile layout: Content left, Timeline right */}
+								<div className="md:hidden flex gap-4 pr-8">
+									<div className="flex-1 space-y-4">
+										<ImageCarousel
+											images={[thrift1, thrift2, thrift3, thrift4, thrift5]}
+											title="Online Thrift Shop"
+										/>
+										<div>
+											<motion.h3
+												initial={{ opacity: 0, y: 12 }}
+												whileInView={{ opacity: 1, y: 0 }}
+												viewport={{ once: true }}
+												transition={{ delay: 0.2, duration: 0.5 }}
+												className="text-2xl font-semibold mb-4 tracking-tight"
+											>
+												Online Thrift Shop
+											</motion.h3>
+											<motion.p
+												initial={{ opacity: 0, y: 12 }}
+												whileInView={{ opacity: 1, y: 0 }}
+												viewport={{ once: true }}
+												transition={{ delay: 0.3, duration: 0.5 }}
+												className="text-gray-600 leading-relaxed mb-6"
+											>
+												A web-based online thrift shop built using HTML, CSS,
+												Tailwind CSS, and MySQL, featuring a user-friendly
+												interface for browsing products and managing inventory
+												data.
+											</motion.p>
+											<div className="flex flex-wrap gap-3">
+												{["HTML", "CSS", "Tailwind", "MySQL"].map((tool) => (
+													<motion.span
+														key={tool}
+														variants={badge}
+														whileHover={{ scale: 1.05 }}
+														className="px-4 py-1.5 rounded-full text-sm font-medium bg-white/60 backdrop-blur-md border border-white/40 text-gray-700 shadow-sm hover:bg-white/80 transition"
+													>
+														{tool}
+													</motion.span>
+												))}
+											</div>
+										</div>
+									</div>
+								</div>
+							</motion.div>
+
+							{/* Project 3: Portfolio - Vacation 2025 (Left) */}
+							<motion.div variants={projectItemLeft} className="relative">
+								{/* Timeline Dot - Desktop (center) */}
+								<motion.div
+									initial={{ scale: 0, opacity: 0 }}
+									whileInView={{ scale: 1, opacity: 1 }}
+									viewport={{ once: true }}
+									transition={{ duration: 0.5, delay: 0.3 }}
+									className="hidden md:block absolute left-1/2 transform -translate-x-1/2 w-4 h-4 bg-gray-700 rounded-full border-4 border-white shadow-lg z-10"
+								/>
+								{/* Timeline Dot - Mobile (right) */}
+								<motion.div
+									initial={{ scale: 0, opacity: 0 }}
+									whileInView={{ scale: 1, opacity: 1 }}
+									viewport={{ once: true }}
+									transition={{ duration: 0.5, delay: 0.3 }}
+									className="md:hidden absolute right-0 transform translate-x-1/2 w-4 h-4 bg-gray-700 rounded-full border-4 border-white shadow-lg z-10"
+								/>
+
+								{/* Date Badge - Desktop (center) */}
+								<motion.div
+									initial={{ opacity: 0, x: -20 }}
+									whileInView={{ opacity: 1, x: 0 }}
+									viewport={{ once: true }}
+									transition={{ duration: 0.6, delay: 0.2 }}
+									className="hidden md:block absolute left-1/2 transform -translate-x-1/2 -translate-y-8 px-4 py-1.5 rounded-full bg-white/80 backdrop-blur-md border border-white/50 text-sm font-semibold text-gray-700 shadow-md whitespace-nowrap z-20"
+								>
+									Vacation 2025
+								</motion.div>
+								{/* Date Badge - Mobile (right) */}
+								<motion.div
+									initial={{ opacity: 0, x: 20 }}
+									whileInView={{ opacity: 1, x: 0 }}
+									viewport={{ once: true }}
+									transition={{ duration: 0.6, delay: 0.2 }}
+									className="md:hidden absolute right-0 transform translate-x-1/2 -translate-y-8 px-4 py-1.5 rounded-full bg-white/80 backdrop-blur-md border border-white/50 text-sm font-semibold text-gray-700 shadow-md whitespace-nowrap z-20"
+								>
+									Vacation 2025
+								</motion.div>
+
+								{/* Glow background */}
+								<motion.div
+									aria-hidden
+									initial={{ scale: 0.9, opacity: 0 }}
+									whileInView={{ scale: 1, opacity: 1 }}
+									viewport={{ once: true }}
+									transition={{ duration: 1.2, ease: "easeOut" }}
+									className="absolute -inset-6 rounded-3xl bg-gradient-to-br from-white/40 via-white/10 to-transparent blur-2xl -z-10"
+								/>
+
+								{/* Project content - Desktop: Image left, Timeline center, Description right */}
+								<div className="hidden md:flex gap-4 items-center relative pt-8">
+									<div className="w-[45%] pr-6">
+										<ImageCarousel
+											images={[portfolio1, portfolio2, portfolio3, portfolio4]}
+											title="Portfolio Website"
+										/>
+									</div>
+									<div className="w-[10%] shrink-0"></div>
+									<div className="w-[45%] pl-6">
+										<motion.h3
+											initial={{ opacity: 0, y: 12 }}
+											whileInView={{ opacity: 1, y: 0 }}
+											viewport={{ once: true }}
+											transition={{ delay: 0.2, duration: 0.5 }}
+											className="text-2xl font-semibold mb-4 tracking-tight"
+										>
+											Portfolio Website
+										</motion.h3>
+										<motion.p
+											initial={{ opacity: 0, y: 12 }}
+											whileInView={{ opacity: 1, y: 0 }}
+											viewport={{ once: true }}
+											transition={{ delay: 0.3, duration: 0.5 }}
+											className="text-gray-600 leading-relaxed mb-6 max-w-lg"
+										>
+											A fully responsive personal portfolio website built with
+											HTML, CSS, and Tailwind CSS, showcasing projects and
+											skills through a clean, modern, and user-focused
+											interface.
+										</motion.p>
+										<div className="flex flex-wrap gap-3">
+											{["HTML", "CSS", "Tailwind"].map((tool) => (
+												<motion.span
+													key={tool}
+													variants={badge}
+													whileHover={{ scale: 1.05 }}
+													className="px-4 py-1.5 rounded-full text-sm font-medium bg-white/60 backdrop-blur-md border border-white/40 text-gray-700 shadow-sm hover:bg-white/80 transition"
+												>
+													{tool}
+												</motion.span>
+											))}
+										</div>
+									</div>
+								</div>
+
+								{/* Mobile layout: Content left, Timeline right */}
+								<div className="md:hidden flex gap-4 pr-8">
+									<div className="flex-1 space-y-4">
+										<ImageCarousel
+											images={[portfolio1, portfolio2, portfolio3, portfolio4]}
+											title="Portfolio Website"
+										/>
+										<div>
+											<motion.h3
+												initial={{ opacity: 0, y: 12 }}
+												whileInView={{ opacity: 1, y: 0 }}
+												viewport={{ once: true }}
+												transition={{ delay: 0.2, duration: 0.5 }}
+												className="text-2xl font-semibold mb-4 tracking-tight"
+											>
+												Portfolio Website
+											</motion.h3>
+											<motion.p
+												initial={{ opacity: 0, y: 12 }}
+												whileInView={{ opacity: 1, y: 0 }}
+												viewport={{ once: true }}
+												transition={{ delay: 0.3, duration: 0.5 }}
+												className="text-gray-600 leading-relaxed mb-6"
+											>
+												A fully responsive personal portfolio website built with
+												HTML, CSS, and Tailwind CSS, showcasing projects and
+												skills through a clean, modern, and user-focused
+												interface.
+											</motion.p>
+											<div className="flex flex-wrap gap-3">
+												{["HTML", "CSS", "Tailwind"].map((tool) => (
+													<motion.span
+														key={tool}
+														variants={badge}
+														whileHover={{ scale: 1.05 }}
+														className="px-4 py-1.5 rounded-full text-sm font-medium bg-white/60 backdrop-blur-md border border-white/40 text-gray-700 shadow-sm hover:bg-white/80 transition"
+													>
+														{tool}
+													</motion.span>
+												))}
+											</div>
+										</div>
+									</div>
+								</div>
+							</motion.div>
+
+							{/* Project 4: Malvar Bat Cafe - 3rd Yr 1st Sem 2025 (Right) */}
+							<motion.div variants={projectItemRight} className="relative">
+								{/* Timeline Dot - Desktop (center) */}
+								<motion.div
+									initial={{ scale: 0, opacity: 0 }}
+									whileInView={{ scale: 1, opacity: 1 }}
+									viewport={{ once: true }}
+									transition={{ duration: 0.5, delay: 0.3 }}
+									className="hidden md:block absolute left-1/2 transform -translate-x-1/2 w-4 h-4 bg-gray-700 rounded-full border-4 border-white shadow-lg z-10"
+								/>
+								{/* Timeline Dot - Mobile (right) */}
+								<motion.div
+									initial={{ scale: 0, opacity: 0 }}
+									whileInView={{ scale: 1, opacity: 1 }}
+									viewport={{ once: true }}
+									transition={{ duration: 0.5, delay: 0.3 }}
+									className="md:hidden absolute right-0 transform translate-x-1/2 w-4 h-4 bg-gray-700 rounded-full border-4 border-white shadow-lg z-10"
+								/>
+
+								{/* Date Badge - Desktop (center) */}
+								<motion.div
+									initial={{ opacity: 0, x: 20 }}
+									whileInView={{ opacity: 1, x: 0 }}
+									viewport={{ once: true }}
+									transition={{ duration: 0.6, delay: 0.2 }}
+									className="hidden md:block absolute left-1/2 transform -translate-x-1/2 -translate-y-8 px-4 py-1.5 rounded-full bg-white/80 backdrop-blur-md border border-white/50 text-sm font-semibold text-gray-700 shadow-md whitespace-nowrap z-20"
+								>
+									3rd Yr 1st Sem 2025
+								</motion.div>
+								{/* Date Badge - Mobile (right) */}
+								<motion.div
+									initial={{ opacity: 0, x: 20 }}
+									whileInView={{ opacity: 1, x: 0 }}
+									viewport={{ once: true }}
+									transition={{ duration: 0.6, delay: 0.2 }}
+									className="md:hidden absolute right-0 transform translate-x-1/2 -translate-y-8 px-4 py-1.5 rounded-full bg-white/80 backdrop-blur-md border border-white/50 text-sm font-semibold text-gray-700 shadow-md whitespace-nowrap z-20"
+								>
+									3rd Yr 1st Sem 2025
+								</motion.div>
+
+								{/* Glow background */}
+								<motion.div
+									aria-hidden
+									initial={{ scale: 0.9, opacity: 0 }}
+									whileInView={{ scale: 1, opacity: 1 }}
+									viewport={{ once: true }}
+									transition={{ duration: 1.2, ease: "easeOut" }}
+									className="absolute -inset-6 rounded-3xl bg-gradient-to-br from-white/40 via-white/10 to-transparent blur-2xl -z-10"
+								/>
+
+								{/* Project content - Desktop: Description left, Timeline center, Image right */}
+								<div className="hidden md:flex gap-4 items-center relative pt-8">
+									<div className="w-[45%] pr-6">
+										<motion.h3
+											initial={{ opacity: 0, y: 12 }}
+											whileInView={{ opacity: 1, y: 0 }}
+											viewport={{ once: true }}
+											transition={{ delay: 0.2, duration: 0.5 }}
+											className="text-2xl font-semibold mb-4 tracking-tight"
+										>
+											Malvar Bat Cave Café
+										</motion.h3>
+										<motion.p
+											initial={{ opacity: 0, y: 12 }}
+											whileInView={{ opacity: 1, y: 0 }}
+											viewport={{ once: true }}
+											transition={{ delay: 0.3, duration: 0.5 }}
+											className="text-gray-600 leading-relaxed mb-6 max-w-lg"
+										>
+											A café management system built with PHP and XAMPP,
+											featuring full CRUD functionality for managing products,
+											orders, and records, with an implemented chatbot to
+											support customer inquiries and streamline interaction.
+										</motion.p>
+										<div className="flex flex-wrap gap-3">
+											{["PHP", "XAMPP", "CRUD", "MySQL"].map((tool) => (
+												<motion.span
+													key={tool}
+													variants={badge}
+													whileHover={{ scale: 1.05 }}
+													className="px-4 py-1.5 rounded-full text-sm font-medium bg-white/60 backdrop-blur-md border border-white/40 text-gray-700 shadow-sm hover:bg-white/80 transition"
+												>
+													{tool}
+												</motion.span>
+											))}
+										</div>
+									</div>
+									<div className="w-[10%] shrink-0"></div>
+									<div className="w-[45%] pl-6">
+										<ImageCarousel
+											images={[
+												cafe1,
+												cafe2,
+												cafe3,
+												cafe4,
+												cafe5,
+												cafe6,
+												cafe7,
+												cafe8,
+												cafe9,
+												cafe10,
+											]}
+											title="Malvar Bat Cave Café"
+										/>
+									</div>
+								</div>
+
+								{/* Mobile layout: Content left, Timeline right */}
+								<div className="md:hidden flex gap-4 pr-8">
+									<div className="flex-1 space-y-4">
+										<ImageCarousel
+											images={[
+												cafe1,
+												cafe2,
+												cafe3,
+												cafe4,
+												cafe5,
+												cafe6,
+												cafe7,
+												cafe8,
+												cafe9,
+												cafe10,
+											]}
+											title="Malvar Bat Cave Café"
+										/>
+										<div>
+											<motion.h3
+												initial={{ opacity: 0, y: 12 }}
+												whileInView={{ opacity: 1, y: 0 }}
+												viewport={{ once: true }}
+												transition={{ delay: 0.2, duration: 0.5 }}
+												className="text-2xl font-semibold mb-4 tracking-tight"
+											>
+												Malvar Bat Cave Café
+											</motion.h3>
+											<motion.p
+												initial={{ opacity: 0, y: 12 }}
+												whileInView={{ opacity: 1, y: 0 }}
+												viewport={{ once: true }}
+												transition={{ delay: 0.3, duration: 0.5 }}
+												className="text-gray-600 leading-relaxed mb-6"
+											>
+												A café management system built with PHP and XAMPP,
+												featuring full CRUD functionality for managing products,
+												orders, and records, with an implemented chatbot to
+												support customer inquiries and streamline interaction.
+											</motion.p>
+											<div className="flex flex-wrap gap-3">
+												{["PHP", "XAMPP", "CRUD", "MySQL"].map((tool) => (
+													<motion.span
+														key={tool}
+														variants={badge}
+														whileHover={{ scale: 1.05 }}
+														className="px-4 py-1.5 rounded-full text-sm font-medium bg-white/60 backdrop-blur-md border border-white/40 text-gray-700 shadow-sm hover:bg-white/80 transition"
+													>
+														{tool}
+													</motion.span>
+												))}
+											</div>
+										</div>
+									</div>
+								</div>
+							</motion.div>
+
+							{/* Project 5: Vehicle Rental - 3rd yr 1st Sem 2025 (Left) */}
+							<motion.div variants={projectItemLeft} className="relative">
+								{/* Timeline Dot - Desktop (center) */}
+								<motion.div
+									initial={{ scale: 0, opacity: 0 }}
+									whileInView={{ scale: 1, opacity: 1 }}
+									viewport={{ once: true }}
+									transition={{ duration: 0.5, delay: 0.3 }}
+									className="hidden md:block absolute left-1/2 transform -translate-x-1/2 w-4 h-4 bg-gray-700 rounded-full border-4 border-white shadow-lg z-10"
+								/>
+								{/* Timeline Dot - Mobile (right) */}
+								<motion.div
+									initial={{ scale: 0, opacity: 0 }}
+									whileInView={{ scale: 1, opacity: 1 }}
+									viewport={{ once: true }}
+									transition={{ duration: 0.5, delay: 0.3 }}
+									className="md:hidden absolute right-0 transform translate-x-1/2 w-4 h-4 bg-gray-700 rounded-full border-4 border-white shadow-lg z-10"
+								/>
+
+								{/* Date Badge - Desktop (center) */}
+								<motion.div
+									initial={{ opacity: 0, x: -20 }}
+									whileInView={{ opacity: 1, x: 0 }}
+									viewport={{ once: true }}
+									transition={{ duration: 0.6, delay: 0.2 }}
+									className="hidden md:block absolute left-1/2 transform -translate-x-1/2 -translate-y-8 px-4 py-1.5 rounded-full bg-white/80 backdrop-blur-md border border-white/50 text-sm font-semibold text-gray-700 shadow-md whitespace-nowrap z-20"
+								>
+									3rd Yr 1st Sem 2025
+								</motion.div>
+								{/* Date Badge - Mobile (right) */}
+								<motion.div
+									initial={{ opacity: 0, x: 20 }}
+									whileInView={{ opacity: 1, x: 0 }}
+									viewport={{ once: true }}
+									transition={{ duration: 0.6, delay: 0.2 }}
+									className="md:hidden absolute right-0 transform translate-x-1/2 -translate-y-8 px-4 py-1.5 rounded-full bg-white/80 backdrop-blur-md border border-white/50 text-sm font-semibold text-gray-700 shadow-md whitespace-nowrap z-20"
+								>
+									3rd Yr 1st Sem 2025
+								</motion.div>
+
+								{/* Glow background */}
+								<motion.div
+									aria-hidden
+									initial={{ scale: 0.9, opacity: 0 }}
+									whileInView={{ scale: 1, opacity: 1 }}
+									viewport={{ once: true }}
+									transition={{ duration: 1.2, ease: "easeOut" }}
+									className="absolute -inset-6 rounded-3xl bg-gradient-to-br from-white/40 via-white/10 to-transparent blur-2xl -z-10"
+								/>
+
+								{/* Project content - Desktop: Image left, Timeline center, Description right */}
+								<div className="hidden md:flex gap-4 items-center relative pt-8">
+									<div className="w-[45%] pr-6">
+										<ImageCarousel
+											images={[
+												rental1,
+												rental2,
+												rental3,
+												rental4,
+												rental5,
+												rental6,
+												rental7,
+												rental8,
+												rental9,
+												rental10,
+											]}
+											title="Vehicle Rental System"
+										/>
+									</div>
+									<div className="w-[10%] shrink-0"></div>
+									<div className="w-[45%] pl-6">
+										<motion.h3
+											initial={{ opacity: 0, y: 12 }}
+											whileInView={{ opacity: 1, y: 0 }}
+											viewport={{ once: true }}
+											transition={{ delay: 0.2, duration: 0.5 }}
+											className="text-2xl font-semibold mb-4 tracking-tight"
+										>
+											Vehicle Rental System
+										</motion.h3>
+										<motion.p
+											initial={{ opacity: 0, y: 12 }}
+											whileInView={{ opacity: 1, y: 0 }}
+											viewport={{ once: true }}
+											transition={{ delay: 0.3, duration: 0.5 }}
+											className="text-gray-600 leading-relaxed mb-6 max-w-lg"
+										>
+											A PHP-based vehicle rental system using CRUD operations
+											and XML for structured data handling, enhanced with an
+											integrated chatbot to assist users with vehicle inquiries,
+											availability, and booking guidance.
+										</motion.p>
+										<div className="flex flex-wrap gap-3">
+											{["PHP", "CRUD", "XML"].map((tool) => (
+												<motion.span
+													key={tool}
+													variants={badge}
+													whileHover={{ scale: 1.05 }}
+													className="px-4 py-1.5 rounded-full text-sm font-medium bg-white/60 backdrop-blur-md border border-white/40 text-gray-700 shadow-sm hover:bg-white/80 transition"
+												>
+													{tool}
+												</motion.span>
+											))}
+										</div>
+									</div>
+								</div>
+
+								{/* Mobile layout: Content left, Timeline right */}
+								<div className="md:hidden flex gap-4 pr-8">
+									<div className="flex-1 space-y-4">
+										<ImageCarousel
+											images={[
+												rental1,
+												rental2,
+												rental3,
+												rental4,
+												rental5,
+												rental6,
+												rental7,
+												rental8,
+												rental9,
+												rental10,
+											]}
+											title="Vehicle Rental System"
+										/>
+										<div>
+											<motion.h3
+												initial={{ opacity: 0, y: 12 }}
+												whileInView={{ opacity: 1, y: 0 }}
+												viewport={{ once: true }}
+												transition={{ delay: 0.2, duration: 0.5 }}
+												className="text-2xl font-semibold mb-4 tracking-tight"
+											>
+												Vehicle Rental System
+											</motion.h3>
+											<motion.p
+												initial={{ opacity: 0, y: 12 }}
+												whileInView={{ opacity: 1, y: 0 }}
+												viewport={{ once: true }}
+												transition={{ delay: 0.3, duration: 0.5 }}
+												className="text-gray-600 leading-relaxed mb-6"
+											>
+												A PHP-based vehicle rental system using CRUD operations
+												and XML for structured data handling, enhanced with an
+												integrated chatbot to assist users with vehicle
+												inquiries, availability, and booking guidance.
+											</motion.p>
+											<div className="flex flex-wrap gap-3">
+												{["PHP", "CRUD", "XML"].map((tool) => (
+													<motion.span
+														key={tool}
+														variants={badge}
+														whileHover={{ scale: 1.05 }}
+														className="px-4 py-1.5 rounded-full text-sm font-medium bg-white/60 backdrop-blur-md border border-white/40 text-gray-700 shadow-sm hover:bg-white/80 transition"
+													>
+														{tool}
+													</motion.span>
+												))}
+											</div>
+										</div>
+									</div>
+								</div>
+							</motion.div>
+						</motion.div>
+					</div>
 				</motion.div>
 			</div>
 		</section>

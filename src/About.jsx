@@ -57,9 +57,14 @@ function About() {
 							className="flex items-center gap-3 mb-5"
 						>
 							<FiUser className="text-4xl md:text-5xl text-gray-900" />
-							<motion.h1 className="text-4xl md:text-5xl font-semibold tracking-tight text-gray-900">
+							<motion.h2
+								initial={{ opacity: 0, y: 20, letterSpacing: "0.2em" }}
+								whileInView={{ opacity: 1, y: 0, letterSpacing: "0em" }}
+								transition={{ duration: 0.8, ease: "easeOut" }}
+								className="text-4xl md:text-4xl font-semibold tracking-tight text-gray-900"
+							>
 								About Me
-							</motion.h1>
+							</motion.h2>
 						</motion.div>
 
 						<motion.p
