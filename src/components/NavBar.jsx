@@ -275,10 +275,23 @@ function NavBar() {
 						key={item.id}
 						onClick={() => {
 							setActive(item.id);
-							document.getElementById(item.id)?.scrollIntoView({
-								behavior: "smooth",
-								block: "start",
-							});
+							const element = document.getElementById(item.id);
+							if (element) {
+								// Update hash to trigger animation
+								window.history.pushState(null, "", `#${item.id}`);
+
+								// Get the element's position relative to the document
+								const elementPosition =
+									element.getBoundingClientRect().top + window.scrollY;
+								// Scroll to the element
+								window.scrollTo({
+									top: elementPosition,
+									behavior: "smooth",
+								});
+
+								// Trigger a custom event for animation reset
+								window.dispatchEvent(new Event("hashchange"));
+							}
 						}}
 						aria-label={item.label}
 						className={`flex items-center justify-center

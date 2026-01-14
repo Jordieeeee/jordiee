@@ -1,6 +1,6 @@
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { FiBookOpen } from "react-icons/fi";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import portfolio1 from "./assets/proj/1stPortfolio/portfolio1.png";
 import portfolio2 from "./assets/proj/1stPortfolio/portfolio2.png";
 import portfolio3 from "./assets/proj/1stPortfolio/portfolio3.png";
@@ -37,7 +37,7 @@ import rental10 from "./assets/proj/vehiRental/vRental10.png";
 // import updated1 from "./assets/proj/newPortfolio/up1.png";
 // import updated2 from "./assets/proj/newPortfolio/up2.png";
 
-const ImageCarousel = ({ images, title }) => {
+const ImageCarousel = ({ images, title, dateBadge }) => {
 	const [currentIndex, setCurrentIndex] = useState(0);
 
 	useEffect(() => {
@@ -67,6 +67,21 @@ const ImageCarousel = ({ images, title }) => {
 					mx-auto
 				"
 			>
+				{/* Mobile Date Badge - Positioned on top of image */}
+				{dateBadge && (
+					<motion.div
+						initial={{ opacity: 0, y: -10 }}
+						whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+						viewport={{ once: true, amount: 0.5 }}
+						transition={{ duration: 0.5, delay: 0.3 }}
+						className="md:hidden absolute top-3 left-3 px-3 py-1.5 rounded-full 
+							bg-white/90 backdrop-blur-md border border-white/50 
+							text-xs font-semibold text-gray-700 shadow-lg z-30
+							whitespace-nowrap"
+					>
+						{dateBadge}
+					</motion.div>
+				)}
 				<motion.img
 					key={currentIndex}
 					initial={{ opacity: 0, scale: 1.05 }}
@@ -194,6 +209,53 @@ const ImageCarousel = ({ images, title }) => {
 };
 
 function Projects() {
+	const [animationKey, setAnimationKey] = useState(0);
+	const timelineRef = useRef(null);
+
+	// Scroll progress for timeline
+	const { scrollYProgress } = useScroll({
+		target: timelineRef,
+		offset: ["start center", "end center"],
+	});
+
+	// Transform scroll progress to scale
+	const scaleY = useTransform(scrollYProgress, [0, 1], [0, 1]);
+
+	// Trigger animations when section is navigated to
+	useEffect(() => {
+		const handleHashChange = () => {
+			if (
+				window.location.hash === "#education" ||
+				document.getElementById("education")?.getBoundingClientRect().top === 0
+			) {
+				setAnimationKey((prev) => prev + 1);
+			}
+		};
+
+		// Listen for navigation events
+		window.addEventListener("hashchange", handleHashChange);
+
+		// Check on mount if we're already at the section
+		const observer = new IntersectionObserver(
+			(entries) => {
+				entries.forEach((entry) => {
+					if (entry.isIntersecting && entry.intersectionRatio > 0.5) {
+						setAnimationKey((prev) => prev + 1);
+					}
+				});
+			},
+			{ threshold: 0.5 }
+		);
+
+		const section = document.getElementById("education");
+		if (section) observer.observe(section);
+
+		return () => {
+			window.removeEventListener("hashchange", handleHashChange);
+			if (section) observer.unobserve(section);
+		};
+	}, []);
+
 	const container = {
 		hidden: {},
 		visible: {
@@ -226,27 +288,71 @@ function Projects() {
 		hidden: {},
 		visible: {
 			transition: {
-				staggerChildren: 0.15,
-				delayChildren: 0.2,
+				staggerChildren: 0.2,
+				delayChildren: 0.3,
 			},
 		},
 	};
 
 	const projectItemLeft = {
-		hidden: { opacity: 0, x: -40 },
+		hidden: { opacity: 0, x: -50, filter: "blur(4px)" },
 		visible: {
 			opacity: 1,
 			x: 0,
-			transition: { duration: 0.7, ease: "easeOut" },
+			filter: "blur(0px)",
+			transition: {
+				duration: 0.8,
+				ease: [0.22, 1, 0.36, 1], // Custom ease-out curve for smooth deceleration
+			},
 		},
 	};
 
 	const projectItemRight = {
-		hidden: { opacity: 0, x: 40 },
+		hidden: { opacity: 0, x: 50, filter: "blur(4px)" },
 		visible: {
 			opacity: 1,
 			x: 0,
-			transition: { duration: 0.7, ease: "easeOut" },
+			filter: "blur(0px)",
+			transition: {
+				duration: 0.8,
+				ease: [0.22, 1, 0.36, 1],
+			},
+		},
+	};
+
+	// Timeline dot animation with subtle pulse
+	const timelineDot = {
+		hidden: { scale: 0, opacity: 0 },
+		visible: {
+			scale: 1,
+			opacity: 1,
+			transition: {
+				type: "spring",
+				stiffness: 300,
+				damping: 20,
+				delay: 0.2,
+			},
+		},
+	};
+
+	// Date badge animation
+	const dateBadgeLeft = {
+		hidden: { opacity: 0, x: -20, filter: "blur(4px)" },
+		visible: {
+			opacity: 1,
+			x: 0,
+			filter: "blur(0px)",
+			transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1], delay: 0.3 },
+		},
+	};
+
+	const dateBadgeRight = {
+		hidden: { opacity: 0, x: 20, filter: "blur(4px)" },
+		visible: {
+			opacity: 1,
+			x: 0,
+			filter: "blur(0px)",
+			transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1], delay: 0.3 },
 		},
 	};
 
@@ -255,16 +361,22 @@ function Projects() {
 			<div className="min-h-screen flex items-center justify-center px-6 py-20">
 				{/* Glass Card */}
 				<motion.div
+					key={animationKey}
 					initial={{ opacity: 0, y: 60 }}
-					whileInView={{ opacity: 1, y: 0 }}
-					viewport={{ once: true, amount: 0.3 }}
+					animate={{ opacity: 1, y: 0 }}
 					transition={{ duration: 0.8, ease: "easeOut" }}
 					className="relative max-w-5xl w-full p-10 rounded-3xl bg-white/70 backdrop-blur-2xl
 					border border-white/50
 					shadow-[0_20px_60px_-15px_rgba(0,0,0,0.25)]"
 				>
 					<div className="absolute inset-0 -z-10 rounded-3xl bg-gradient-to-br from-white/40 via-transparent to-white/10" />
-					<motion.div variants={item} className="flex items-center gap-3 mb-10">
+					<motion.div
+						initial={{ opacity: 0, y: 20 }}
+						whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+						viewport={{ once: true, amount: 0.5 }}
+						transition={{ duration: 0.6, ease: "easeOut" }}
+						className="flex items-center gap-3 mb-10"
+					>
 						<FiBookOpen className="text-4xl md:text-5xl text-gray-900" />
 						<motion.h2
 							initial={{ opacity: 0, y: 20, letterSpacing: "0.2em" }}
@@ -275,24 +387,96 @@ function Projects() {
 							Educational Journey
 						</motion.h2>
 					</motion.div>
-					<motion.div
-						variants={{
-							hidden: {},
-							visible: { transition: { staggerChildren: 0.08 } },
-						}}
-						initial="hidden"
-						whileInView="visible"
-						viewport={{ once: true }}
-						className="flex flex-wrap gap-3"
-					>
-						<motion.div
-							variants={item}
-							className="w-full h-px bg-gradient-to-r from-transparent via-gray-300 to-transparent mb-8"
-						/>
-					</motion.div>
-					{/* Education Overview */}
 
-					<motion.div variants={item} className="flex items-center gap-3 mb-10">
+					<motion.div
+						initial={{ opacity: 0, scaleX: 0 }}
+						whileInView={{ opacity: 1, scaleX: 1 }}
+						viewport={{ once: true, amount: 0.5 }}
+						transition={{ duration: 0.6, ease: "easeOut" }}
+					/>
+
+					{/* Education Overview */}
+					<motion.div
+						initial={{ opacity: 0, y: 30 }}
+						whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+						viewport={{ once: true, amount: 0.5 }}
+						transition={{ duration: 0.7, ease: "easeOut" }}
+						className="mb-20"
+					>
+						<div
+							className="relative rounded-2xl p-8 md:p-10
+                            bg-white/60 backdrop-blur-xl
+                            border border-white/40
+                            shadow-lg"
+						>
+							<div
+								className="absolute inset-0 rounded-2xl
+                                bg-gradient-to-br from-white/40 via-transparent to-white/10
+                                -z-10"
+							/>
+
+							<h3 className="text-2xl md:text-3xl font-semibold tracking-tight mb-4">
+								Education Overview
+							</h3>
+
+							<p className="text-gray-700 leading-relaxed max-w-3xl">
+								Throughout my academic journey in software and system
+								development, I focused on building strong foundations in
+								programming, database management, and user-centered application
+								design. My education emphasized hands-on development,
+								problem-solving, and real-world project execution rather than
+								purely theoretical learning.
+							</p>
+
+							<p className="text-gray-700 leading-relaxed mt-4 max-w-3xl">
+								I worked extensively with technologies such as <b>Java (OOP)</b>
+								, <b>PHP</b>,<b> MySQL</b>, <b>HTML</b>, <b>CSS</b>, and{" "}
+								<b>Tailwind CSS</b>, developing systems that included scheduling
+								platforms, e-commerce solutions, inventory systems, and
+								interactive web applications. These projects strengthened my
+								understanding of clean architecture, CRUD operations, database
+								relationships, and responsive UI design.
+							</p>
+
+							<p className="text-gray-700 leading-relaxed mt-4 max-w-3xl">
+								My academic experience trained me to analyze requirements
+								carefully, design scalable solutions, and deliver functional
+								systems under project deadlines — preparing me for real-world
+								full-stack development and continuous learning in modern
+								technologies such as React and automation workflows.
+							</p>
+
+							{/* Skills highlights */}
+							<div className="flex flex-wrap gap-3 mt-6">
+								{[
+									"Object-Oriented Programming",
+									"Database Design",
+									"Full Stack Development",
+									"System Analysis",
+									"UI/UX Implementation",
+									"Agile Project Execution",
+								].map((skill) => (
+									<span
+										key={skill}
+										className="px-4 py-1.5 rounded-full text-sm font-medium
+                                        bg-white/70 backdrop-blur-md
+                                        border border-white/40
+                                        text-gray-700 shadow-sm"
+									>
+										{skill}
+									</span>
+								))}
+							</div>
+						</div>
+					</motion.div>
+
+					<motion.div
+						initial={{ opacity: 0, y: 20 }}
+						whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+						viewport={{ once: true, amount: 0.5 }}
+						transition={{ duration: 0.6, ease: "easeOut", delay: 0.2 }}
+						className="flex items-center gap-3 mb-10"
+					>
 						<svg
 							width="48px"
 							height="48px"
@@ -328,62 +512,78 @@ function Projects() {
 					</motion.div>
 
 					<motion.div
-						variants={item}
+						initial={{ opacity: 0, scaleX: 0 }}
+						whileInView={{ opacity: 1, scaleX: 1 }}
+						viewport={{ once: true, amount: 0.5 }}
+						transition={{ duration: 0.6, ease: "easeOut" }}
 						className="w-full h-px bg-gradient-to-r from-transparent via-gray-300 to-transparent my-8"
 					/>
 
 					{/* Timeline Projects Section */}
-					<div className="relative">
-						{/* Vertical Timeline Line - Desktop (center) */}
-						<div className="hidden md:block absolute left-1/2 transform -translate-x-1/2 w-0.5 h-full bg-gradient-to-b from-gray-300 via-gray-400 to-gray-300 z-0"></div>
+					<div ref={timelineRef} className="relative">
+						{/* Background Timeline Line - Desktop (center) - Base line */}
+						<div className="hidden md:block absolute left-1/2 transform -translate-x-1/2 w-0.5 h-full bg-gray-200 z-0" />
 
-						{/* Mobile Timeline Line - Right side */}
-						<div className="md:hidden absolute right-0 w-0.5 h-full bg-gradient-to-b from-gray-300 via-gray-400 to-gray-300 z-0"></div>
+						{/* Animated Progress Timeline Line - Desktop (center) - Fills on scroll */}
+						<motion.div
+							style={{ scaleY, originY: 0 }}
+							className="hidden md:block absolute left-1/2 transform -translate-x-1/2 w-0.5 h-full bg-gradient-to-b from-gray-500 via-gray-600 to-gray-500 z-0"
+						/>
+
+						{/* Background Timeline Line - Mobile (right) - Base line */}
+						<div className="md:hidden absolute right-0 w-0.5 h-full bg-gray-200 z-0" />
+
+						{/* Animated Progress Timeline Line - Mobile (right) - Fills on scroll */}
+						<motion.div
+							style={{ scaleY, originY: 0 }}
+							className="md:hidden absolute right-0 w-0.5 h-full bg-gradient-to-b from-gray-500 via-gray-600 to-gray-500 z-0"
+						/>
 
 						{/* Project List with Timeline */}
 						<motion.div
 							variants={projectContainer}
 							initial="hidden"
 							whileInView="visible"
-							viewport={{ once: true, amount: 0.15 }}
-							className="space-y-24 md:space-y-32 relative"
+							viewport={{ once: true, amount: 0.1 }}
+							className="space-y-24 md:space-y-32 relative pb-32"
 						>
 							{/* Project 1: Time Scheduling System - 2nd yr 1st Sem 2024 (Left) */}
 							<motion.div variants={projectItemLeft} className="relative">
 								{/* Timeline Dot - Desktop (center) */}
 								<motion.div
-									initial={{ scale: 0, opacity: 0 }}
-									whileInView={{ scale: 1, opacity: 1 }}
-									viewport={{ once: true }}
-									transition={{ duration: 0.5, delay: 0.3 }}
-									className="hidden md:block absolute left-1/2 transform -translate-x-1/2 w-4 h-4 bg-gray-700 rounded-full border-4 border-white shadow-lg z-10"
-								/>
+									variants={timelineDot}
+									className="hidden md:flex absolute left-1/2 transform -translate-x-1/2 w-4 h-4 bg-gray-700 rounded-full border-4 border-white shadow-lg z-10 items-center justify-center"
+								>
+									<motion.div
+										animate={{ scale: [1, 1.5, 1], opacity: [0.5, 0, 0.5] }}
+										transition={{
+											duration: 2,
+											repeat: Infinity,
+											ease: "easeInOut",
+										}}
+										className="absolute w-full h-full rounded-full bg-gray-400"
+									/>
+								</motion.div>
 								{/* Timeline Dot - Mobile (right) */}
 								<motion.div
-									initial={{ scale: 0, opacity: 0 }}
-									whileInView={{ scale: 1, opacity: 1 }}
-									viewport={{ once: true }}
-									transition={{ duration: 0.5, delay: 0.3 }}
-									className="md:hidden absolute right-0 transform translate-x-1/2 w-4 h-4 bg-gray-700 rounded-full border-4 border-white shadow-lg z-10"
-								/>
+									variants={timelineDot}
+									className="md:hidden flex absolute right-0 transform translate-x-1/2 w-4 h-4 bg-gray-700 rounded-full border-4 border-white shadow-lg z-10 items-center justify-center"
+								>
+									<motion.div
+										animate={{ scale: [1, 1.5, 1], opacity: [0.5, 0, 0.5] }}
+										transition={{
+											duration: 2,
+											repeat: Infinity,
+											ease: "easeInOut",
+										}}
+										className="absolute w-full h-full rounded-full bg-gray-400"
+									/>
+								</motion.div>
 
 								{/* Date Badge - Desktop (center) */}
 								<motion.div
-									initial={{ opacity: 0, x: -20 }}
-									whileInView={{ opacity: 1, x: 0 }}
-									viewport={{ once: true }}
-									transition={{ duration: 0.6, delay: 0.2 }}
+									variants={dateBadgeLeft}
 									className="hidden md:block absolute left-1/2 transform -translate-x-1/2 -translate-y-8 px-4 py-1.5 rounded-full bg-white/80 backdrop-blur-md border border-white/50 text-sm font-semibold text-gray-700 shadow-md whitespace-nowrap z-20"
-								>
-									2nd Yr 1st Sem 2024
-								</motion.div>
-								{/* Date Badge - Mobile (right) */}
-								<motion.div
-									initial={{ opacity: 0, x: 20 }}
-									whileInView={{ opacity: 1, x: 0 }}
-									viewport={{ once: true }}
-									transition={{ duration: 0.6, delay: 0.2 }}
-									className="md:hidden absolute right-0 transform translate-x-1/2 -translate-y-8 px-4 py-1.5 rounded-full bg-white/80 backdrop-blur-md border border-white/50 text-sm font-semibold text-gray-700 shadow-md whitespace-nowrap z-20"
 								>
 									2nd Yr 1st Sem 2024
 								</motion.div>
@@ -391,10 +591,10 @@ function Projects() {
 								{/* Glow background */}
 								<motion.div
 									aria-hidden
-									initial={{ scale: 0.9, opacity: 0 }}
+									initial={{ scale: 0.8, opacity: 0 }}
 									whileInView={{ scale: 1, opacity: 1 }}
-									viewport={{ once: true }}
-									transition={{ duration: 1.2, ease: "easeOut" }}
+									viewport={{ once: true, amount: 0.5 }}
+									transition={{ duration: 1.4, ease: [0.22, 1, 0.36, 1] }}
 									className="absolute -inset-6 rounded-3xl bg-gradient-to-br from-white/40 via-white/10 to-transparent blur-2xl -z-10"
 								/>
 
@@ -409,19 +609,27 @@ function Projects() {
 									<div className="w-[10%] shrink-0"></div>
 									<div className="w-[45%] pl-6">
 										<motion.h3
-											initial={{ opacity: 0, y: 12 }}
-											whileInView={{ opacity: 1, y: 0 }}
-											viewport={{ once: true }}
-											transition={{ delay: 0.2, duration: 0.5 }}
+											initial={{ opacity: 0, y: 20, filter: "blur(8px)" }}
+											whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+											viewport={{ once: true, amount: 0.5 }}
+											transition={{
+												delay: 0.3,
+												duration: 0.7,
+												ease: [0.22, 1, 0.36, 1],
+											}}
 											className="text-2xl font-semibold mb-4 tracking-tight"
 										>
 											Time Scheduling System
 										</motion.h3>
 										<motion.p
-											initial={{ opacity: 0, y: 12 }}
-											whileInView={{ opacity: 1, y: 0 }}
-											viewport={{ once: true }}
-											transition={{ delay: 0.3, duration: 0.5 }}
+											initial={{ opacity: 0, y: 20, filter: "blur(8px)" }}
+											whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+											viewport={{ once: true, amount: 0.5 }}
+											transition={{
+												delay: 0.4,
+												duration: 0.7,
+												ease: [0.22, 1, 0.36, 1],
+											}}
 											className="text-gray-600 leading-relaxed mb-6 max-w-lg"
 										>
 											A final project developed using Java with Object-Oriented
@@ -450,22 +658,31 @@ function Projects() {
 										<ImageCarousel
 											images={[time1, time2, time3]}
 											title="Time Scheduling System"
+											dateBadge="2nd Yr 1st Sem 2024"
 										/>
 										<div>
 											<motion.h3
-												initial={{ opacity: 0, y: 12 }}
-												whileInView={{ opacity: 1, y: 0 }}
-												viewport={{ once: true }}
-												transition={{ delay: 0.2, duration: 0.5 }}
+												initial={{ opacity: 0, y: 20, filter: "blur(8px)" }}
+												whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+												viewport={{ once: true, amount: 0.5 }}
+												transition={{
+													delay: 0.3,
+													duration: 0.7,
+													ease: [0.22, 1, 0.36, 1],
+												}}
 												className="text-2xl font-semibold mb-4 tracking-tight"
 											>
 												Time Scheduling System
 											</motion.h3>
 											<motion.p
-												initial={{ opacity: 0, y: 12 }}
-												whileInView={{ opacity: 1, y: 0 }}
-												viewport={{ once: true }}
-												transition={{ delay: 0.3, duration: 0.5 }}
+												initial={{ opacity: 0, y: 20, filter: "blur(8px)" }}
+												whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+												viewport={{ once: true, amount: 0.5 }}
+												transition={{
+													delay: 0.4,
+													duration: 0.7,
+													ease: [0.22, 1, 0.36, 1],
+												}}
 												className="text-gray-600 leading-relaxed mb-6"
 											>
 												A final project developed using Java with
@@ -494,38 +711,39 @@ function Projects() {
 							<motion.div variants={projectItemRight} className="relative">
 								{/* Timeline Dot - Desktop (center) */}
 								<motion.div
-									initial={{ scale: 0, opacity: 0 }}
-									whileInView={{ scale: 1, opacity: 1 }}
-									viewport={{ once: true }}
-									transition={{ duration: 0.5, delay: 0.3 }}
-									className="hidden md:block absolute left-1/2 transform -translate-x-1/2 w-4 h-4 bg-gray-700 rounded-full border-4 border-white shadow-lg z-10"
-								/>
+									variants={timelineDot}
+									className="hidden md:flex absolute left-1/2 transform -translate-x-1/2 w-4 h-4 bg-gray-700 rounded-full border-4 border-white shadow-lg z-10 items-center justify-center"
+								>
+									<motion.div
+										animate={{ scale: [1, 1.5, 1], opacity: [0.5, 0, 0.5] }}
+										transition={{
+											duration: 2,
+											repeat: Infinity,
+											ease: "easeInOut",
+										}}
+										className="absolute w-full h-full rounded-full bg-gray-400"
+									/>
+								</motion.div>
 								{/* Timeline Dot - Mobile (right) */}
 								<motion.div
-									initial={{ scale: 0, opacity: 0 }}
-									whileInView={{ scale: 1, opacity: 1 }}
-									viewport={{ once: true }}
-									transition={{ duration: 0.5, delay: 0.3 }}
-									className="md:hidden absolute right-0 transform translate-x-1/2 w-4 h-4 bg-gray-700 rounded-full border-4 border-white shadow-lg z-10"
-								/>
+									variants={timelineDot}
+									className="md:hidden flex absolute right-0 transform translate-x-1/2 w-4 h-4 bg-gray-700 rounded-full border-4 border-white shadow-lg z-10 items-center justify-center"
+								>
+									<motion.div
+										animate={{ scale: [1, 1.5, 1], opacity: [0.5, 0, 0.5] }}
+										transition={{
+											duration: 2,
+											repeat: Infinity,
+											ease: "easeInOut",
+										}}
+										className="absolute w-full h-full rounded-full bg-gray-400"
+									/>
+								</motion.div>
 
 								{/* Date Badge - Desktop (center) */}
 								<motion.div
-									initial={{ opacity: 0, x: 20 }}
-									whileInView={{ opacity: 1, x: 0 }}
-									viewport={{ once: true }}
-									transition={{ duration: 0.6, delay: 0.2 }}
+									variants={dateBadgeRight}
 									className="hidden md:block absolute left-1/2 transform -translate-x-1/2 -translate-y-8 px-4 py-1.5 rounded-full bg-white/80 backdrop-blur-md border border-white/50 text-sm font-semibold text-gray-700 shadow-md whitespace-nowrap z-20"
-								>
-									2nd Yr 2nd Sem 2025
-								</motion.div>
-								{/* Date Badge - Mobile (right) */}
-								<motion.div
-									initial={{ opacity: 0, x: 20 }}
-									whileInView={{ opacity: 1, x: 0 }}
-									viewport={{ once: true }}
-									transition={{ duration: 0.6, delay: 0.2 }}
-									className="md:hidden absolute right-0 transform translate-x-1/2 -translate-y-8 px-4 py-1.5 rounded-full bg-white/80 backdrop-blur-md border border-white/50 text-sm font-semibold text-gray-700 shadow-md whitespace-nowrap z-20"
 								>
 									2nd Yr 2nd Sem 2025
 								</motion.div>
@@ -533,10 +751,10 @@ function Projects() {
 								{/* Glow background */}
 								<motion.div
 									aria-hidden
-									initial={{ scale: 0.9, opacity: 0 }}
+									initial={{ scale: 0.8, opacity: 0 }}
 									whileInView={{ scale: 1, opacity: 1 }}
-									viewport={{ once: true }}
-									transition={{ duration: 1.2, ease: "easeOut" }}
+									viewport={{ once: true, amount: 0.5 }}
+									transition={{ duration: 1.4, ease: [0.22, 1, 0.36, 1] }}
 									className="absolute -inset-6 rounded-3xl bg-gradient-to-br from-white/40 via-white/10 to-transparent blur-2xl -z-10"
 								/>
 
@@ -544,19 +762,27 @@ function Projects() {
 								<div className="hidden md:flex gap-4 items-center relative pt-8">
 									<div className="w-[45%] pr-6">
 										<motion.h3
-											initial={{ opacity: 0, y: 12 }}
-											whileInView={{ opacity: 1, y: 0 }}
-											viewport={{ once: true }}
-											transition={{ delay: 0.2, duration: 0.5 }}
+											initial={{ opacity: 0, y: 20, filter: "blur(8px)" }}
+											whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+											viewport={{ once: true, amount: 0.5 }}
+											transition={{
+												delay: 0.3,
+												duration: 0.7,
+												ease: [0.22, 1, 0.36, 1],
+											}}
 											className="text-2xl font-semibold mb-4 tracking-tight"
 										>
 											Online Thrift Shop
 										</motion.h3>
 										<motion.p
-											initial={{ opacity: 0, y: 12 }}
-											whileInView={{ opacity: 1, y: 0 }}
-											viewport={{ once: true }}
-											transition={{ delay: 0.3, duration: 0.5 }}
+											initial={{ opacity: 0, y: 20, filter: "blur(8px)" }}
+											whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+											viewport={{ once: true, amount: 0.5 }}
+											transition={{
+												delay: 0.4,
+												duration: 0.7,
+												ease: [0.22, 1, 0.36, 1],
+											}}
 											className="text-gray-600 leading-relaxed mb-6 max-w-lg"
 										>
 											A web-based online thrift shop built using HTML, CSS,
@@ -592,22 +818,31 @@ function Projects() {
 										<ImageCarousel
 											images={[thrift1, thrift2, thrift3, thrift4, thrift5]}
 											title="Online Thrift Shop"
+											dateBadge="2nd Yr 2nd Sem 2025"
 										/>
 										<div>
 											<motion.h3
-												initial={{ opacity: 0, y: 12 }}
-												whileInView={{ opacity: 1, y: 0 }}
-												viewport={{ once: true }}
-												transition={{ delay: 0.2, duration: 0.5 }}
+												initial={{ opacity: 0, y: 20, filter: "blur(8px)" }}
+												whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+												viewport={{ once: true, amount: 0.5 }}
+												transition={{
+													delay: 0.3,
+													duration: 0.7,
+													ease: [0.22, 1, 0.36, 1],
+												}}
 												className="text-2xl font-semibold mb-4 tracking-tight"
 											>
 												Online Thrift Shop
 											</motion.h3>
 											<motion.p
-												initial={{ opacity: 0, y: 12 }}
-												whileInView={{ opacity: 1, y: 0 }}
-												viewport={{ once: true }}
-												transition={{ delay: 0.3, duration: 0.5 }}
+												initial={{ opacity: 0, y: 20, filter: "blur(8px)" }}
+												whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+												viewport={{ once: true, amount: 0.5 }}
+												transition={{
+													delay: 0.4,
+													duration: 0.7,
+													ease: [0.22, 1, 0.36, 1],
+												}}
 												className="text-gray-600 leading-relaxed mb-6"
 											>
 												A web-based online thrift shop built using HTML, CSS,
@@ -636,38 +871,39 @@ function Projects() {
 							<motion.div variants={projectItemLeft} className="relative">
 								{/* Timeline Dot - Desktop (center) */}
 								<motion.div
-									initial={{ scale: 0, opacity: 0 }}
-									whileInView={{ scale: 1, opacity: 1 }}
-									viewport={{ once: true }}
-									transition={{ duration: 0.5, delay: 0.3 }}
-									className="hidden md:block absolute left-1/2 transform -translate-x-1/2 w-4 h-4 bg-gray-700 rounded-full border-4 border-white shadow-lg z-10"
-								/>
+									variants={timelineDot}
+									className="hidden md:flex absolute left-1/2 transform -translate-x-1/2 w-4 h-4 bg-gray-700 rounded-full border-4 border-white shadow-lg z-10 items-center justify-center"
+								>
+									<motion.div
+										animate={{ scale: [1, 1.5, 1], opacity: [0.5, 0, 0.5] }}
+										transition={{
+											duration: 2,
+											repeat: Infinity,
+											ease: "easeInOut",
+										}}
+										className="absolute w-full h-full rounded-full bg-gray-400"
+									/>
+								</motion.div>
 								{/* Timeline Dot - Mobile (right) */}
 								<motion.div
-									initial={{ scale: 0, opacity: 0 }}
-									whileInView={{ scale: 1, opacity: 1 }}
-									viewport={{ once: true }}
-									transition={{ duration: 0.5, delay: 0.3 }}
-									className="md:hidden absolute right-0 transform translate-x-1/2 w-4 h-4 bg-gray-700 rounded-full border-4 border-white shadow-lg z-10"
-								/>
+									variants={timelineDot}
+									className="md:hidden flex absolute right-0 transform translate-x-1/2 w-4 h-4 bg-gray-700 rounded-full border-4 border-white shadow-lg z-10 items-center justify-center"
+								>
+									<motion.div
+										animate={{ scale: [1, 1.5, 1], opacity: [0.5, 0, 0.5] }}
+										transition={{
+											duration: 2,
+											repeat: Infinity,
+											ease: "easeInOut",
+										}}
+										className="absolute w-full h-full rounded-full bg-gray-400"
+									/>
+								</motion.div>
 
 								{/* Date Badge - Desktop (center) */}
 								<motion.div
-									initial={{ opacity: 0, x: -20 }}
-									whileInView={{ opacity: 1, x: 0 }}
-									viewport={{ once: true }}
-									transition={{ duration: 0.6, delay: 0.2 }}
+									variants={dateBadgeLeft}
 									className="hidden md:block absolute left-1/2 transform -translate-x-1/2 -translate-y-8 px-4 py-1.5 rounded-full bg-white/80 backdrop-blur-md border border-white/50 text-sm font-semibold text-gray-700 shadow-md whitespace-nowrap z-20"
-								>
-									Vacation 2025
-								</motion.div>
-								{/* Date Badge - Mobile (right) */}
-								<motion.div
-									initial={{ opacity: 0, x: 20 }}
-									whileInView={{ opacity: 1, x: 0 }}
-									viewport={{ once: true }}
-									transition={{ duration: 0.6, delay: 0.2 }}
-									className="md:hidden absolute right-0 transform translate-x-1/2 -translate-y-8 px-4 py-1.5 rounded-full bg-white/80 backdrop-blur-md border border-white/50 text-sm font-semibold text-gray-700 shadow-md whitespace-nowrap z-20"
 								>
 									Vacation 2025
 								</motion.div>
@@ -675,10 +911,10 @@ function Projects() {
 								{/* Glow background */}
 								<motion.div
 									aria-hidden
-									initial={{ scale: 0.9, opacity: 0 }}
+									initial={{ scale: 0.8, opacity: 0 }}
 									whileInView={{ scale: 1, opacity: 1 }}
-									viewport={{ once: true }}
-									transition={{ duration: 1.2, ease: "easeOut" }}
+									viewport={{ once: true, amount: 0.5 }}
+									transition={{ duration: 1.4, ease: [0.22, 1, 0.36, 1] }}
 									className="absolute -inset-6 rounded-3xl bg-gradient-to-br from-white/40 via-white/10 to-transparent blur-2xl -z-10"
 								/>
 
@@ -693,19 +929,27 @@ function Projects() {
 									<div className="w-[10%] shrink-0"></div>
 									<div className="w-[45%] pl-6">
 										<motion.h3
-											initial={{ opacity: 0, y: 12 }}
-											whileInView={{ opacity: 1, y: 0 }}
-											viewport={{ once: true }}
-											transition={{ delay: 0.2, duration: 0.5 }}
+											initial={{ opacity: 0, y: 20, filter: "blur(8px)" }}
+											whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+											viewport={{ once: true, amount: 0.5 }}
+											transition={{
+												delay: 0.3,
+												duration: 0.7,
+												ease: [0.22, 1, 0.36, 1],
+											}}
 											className="text-2xl font-semibold mb-4 tracking-tight"
 										>
 											Portfolio Website
 										</motion.h3>
 										<motion.p
-											initial={{ opacity: 0, y: 12 }}
-											whileInView={{ opacity: 1, y: 0 }}
-											viewport={{ once: true }}
-											transition={{ delay: 0.3, duration: 0.5 }}
+											initial={{ opacity: 0, y: 20, filter: "blur(8px)" }}
+											whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+											viewport={{ once: true, amount: 0.5 }}
+											transition={{
+												delay: 0.4,
+												duration: 0.7,
+												ease: [0.22, 1, 0.36, 1],
+											}}
 											className="text-gray-600 leading-relaxed mb-6 max-w-lg"
 										>
 											A fully responsive personal portfolio website built with
@@ -734,22 +978,31 @@ function Projects() {
 										<ImageCarousel
 											images={[portfolio1, portfolio2, portfolio3, portfolio4]}
 											title="Portfolio Website"
+											dateBadge="Vacation 2025"
 										/>
 										<div>
 											<motion.h3
-												initial={{ opacity: 0, y: 12 }}
-												whileInView={{ opacity: 1, y: 0 }}
-												viewport={{ once: true }}
-												transition={{ delay: 0.2, duration: 0.5 }}
+												initial={{ opacity: 0, y: 20, filter: "blur(8px)" }}
+												whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+												viewport={{ once: true, amount: 0.5 }}
+												transition={{
+													delay: 0.3,
+													duration: 0.7,
+													ease: [0.22, 1, 0.36, 1],
+												}}
 												className="text-2xl font-semibold mb-4 tracking-tight"
 											>
 												Portfolio Website
 											</motion.h3>
 											<motion.p
-												initial={{ opacity: 0, y: 12 }}
-												whileInView={{ opacity: 1, y: 0 }}
-												viewport={{ once: true }}
-												transition={{ delay: 0.3, duration: 0.5 }}
+												initial={{ opacity: 0, y: 20, filter: "blur(8px)" }}
+												whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+												viewport={{ once: true, amount: 0.5 }}
+												transition={{
+													delay: 0.4,
+													duration: 0.7,
+													ease: [0.22, 1, 0.36, 1],
+												}}
 												className="text-gray-600 leading-relaxed mb-6"
 											>
 												A fully responsive personal portfolio website built with
@@ -778,38 +1031,39 @@ function Projects() {
 							<motion.div variants={projectItemRight} className="relative">
 								{/* Timeline Dot - Desktop (center) */}
 								<motion.div
-									initial={{ scale: 0, opacity: 0 }}
-									whileInView={{ scale: 1, opacity: 1 }}
-									viewport={{ once: true }}
-									transition={{ duration: 0.5, delay: 0.3 }}
-									className="hidden md:block absolute left-1/2 transform -translate-x-1/2 w-4 h-4 bg-gray-700 rounded-full border-4 border-white shadow-lg z-10"
-								/>
+									variants={timelineDot}
+									className="hidden md:flex absolute left-1/2 transform -translate-x-1/2 w-4 h-4 bg-gray-700 rounded-full border-4 border-white shadow-lg z-10 items-center justify-center"
+								>
+									<motion.div
+										animate={{ scale: [1, 1.5, 1], opacity: [0.5, 0, 0.5] }}
+										transition={{
+											duration: 2,
+											repeat: Infinity,
+											ease: "easeInOut",
+										}}
+										className="absolute w-full h-full rounded-full bg-gray-400"
+									/>
+								</motion.div>
 								{/* Timeline Dot - Mobile (right) */}
 								<motion.div
-									initial={{ scale: 0, opacity: 0 }}
-									whileInView={{ scale: 1, opacity: 1 }}
-									viewport={{ once: true }}
-									transition={{ duration: 0.5, delay: 0.3 }}
-									className="md:hidden absolute right-0 transform translate-x-1/2 w-4 h-4 bg-gray-700 rounded-full border-4 border-white shadow-lg z-10"
-								/>
+									variants={timelineDot}
+									className="md:hidden flex absolute right-0 transform translate-x-1/2 w-4 h-4 bg-gray-700 rounded-full border-4 border-white shadow-lg z-10 items-center justify-center"
+								>
+									<motion.div
+										animate={{ scale: [1, 1.5, 1], opacity: [0.5, 0, 0.5] }}
+										transition={{
+											duration: 2,
+											repeat: Infinity,
+											ease: "easeInOut",
+										}}
+										className="absolute w-full h-full rounded-full bg-gray-400"
+									/>
+								</motion.div>
 
 								{/* Date Badge - Desktop (center) */}
 								<motion.div
-									initial={{ opacity: 0, x: 20 }}
-									whileInView={{ opacity: 1, x: 0 }}
-									viewport={{ once: true }}
-									transition={{ duration: 0.6, delay: 0.2 }}
+									variants={dateBadgeRight}
 									className="hidden md:block absolute left-1/2 transform -translate-x-1/2 -translate-y-8 px-4 py-1.5 rounded-full bg-white/80 backdrop-blur-md border border-white/50 text-sm font-semibold text-gray-700 shadow-md whitespace-nowrap z-20"
-								>
-									3rd Yr 1st Sem 2025
-								</motion.div>
-								{/* Date Badge - Mobile (right) */}
-								<motion.div
-									initial={{ opacity: 0, x: 20 }}
-									whileInView={{ opacity: 1, x: 0 }}
-									viewport={{ once: true }}
-									transition={{ duration: 0.6, delay: 0.2 }}
-									className="md:hidden absolute right-0 transform translate-x-1/2 -translate-y-8 px-4 py-1.5 rounded-full bg-white/80 backdrop-blur-md border border-white/50 text-sm font-semibold text-gray-700 shadow-md whitespace-nowrap z-20"
 								>
 									3rd Yr 1st Sem 2025
 								</motion.div>
@@ -817,10 +1071,10 @@ function Projects() {
 								{/* Glow background */}
 								<motion.div
 									aria-hidden
-									initial={{ scale: 0.9, opacity: 0 }}
+									initial={{ scale: 0.8, opacity: 0 }}
 									whileInView={{ scale: 1, opacity: 1 }}
-									viewport={{ once: true }}
-									transition={{ duration: 1.2, ease: "easeOut" }}
+									viewport={{ once: true, amount: 0.5 }}
+									transition={{ duration: 1.4, ease: [0.22, 1, 0.36, 1] }}
 									className="absolute -inset-6 rounded-3xl bg-gradient-to-br from-white/40 via-white/10 to-transparent blur-2xl -z-10"
 								/>
 
@@ -828,19 +1082,27 @@ function Projects() {
 								<div className="hidden md:flex gap-4 items-center relative pt-8">
 									<div className="w-[45%] pr-6">
 										<motion.h3
-											initial={{ opacity: 0, y: 12 }}
-											whileInView={{ opacity: 1, y: 0 }}
-											viewport={{ once: true }}
-											transition={{ delay: 0.2, duration: 0.5 }}
+											initial={{ opacity: 0, y: 20, filter: "blur(8px)" }}
+											whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+											viewport={{ once: true, amount: 0.5 }}
+											transition={{
+												delay: 0.3,
+												duration: 0.7,
+												ease: [0.22, 1, 0.36, 1],
+											}}
 											className="text-2xl font-semibold mb-4 tracking-tight"
 										>
 											Malvar Bat Cave Café
 										</motion.h3>
 										<motion.p
-											initial={{ opacity: 0, y: 12 }}
-											whileInView={{ opacity: 1, y: 0 }}
-											viewport={{ once: true }}
-											transition={{ delay: 0.3, duration: 0.5 }}
+											initial={{ opacity: 0, y: 20, filter: "blur(8px)" }}
+											whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+											viewport={{ once: true, amount: 0.5 }}
+											transition={{
+												delay: 0.4,
+												duration: 0.7,
+												ease: [0.22, 1, 0.36, 1],
+											}}
 											className="text-gray-600 leading-relaxed mb-6 max-w-lg"
 										>
 											A café management system built with PHP and XAMPP,
@@ -898,22 +1160,31 @@ function Projects() {
 												cafe10,
 											]}
 											title="Malvar Bat Cave Café"
+											dateBadge="3rd Yr 1st Sem 2025"
 										/>
 										<div>
 											<motion.h3
-												initial={{ opacity: 0, y: 12 }}
-												whileInView={{ opacity: 1, y: 0 }}
-												viewport={{ once: true }}
-												transition={{ delay: 0.2, duration: 0.5 }}
+												initial={{ opacity: 0, y: 20, filter: "blur(8px)" }}
+												whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+												viewport={{ once: true, amount: 0.5 }}
+												transition={{
+													delay: 0.3,
+													duration: 0.7,
+													ease: [0.22, 1, 0.36, 1],
+												}}
 												className="text-2xl font-semibold mb-4 tracking-tight"
 											>
 												Malvar Bat Cave Café
 											</motion.h3>
 											<motion.p
-												initial={{ opacity: 0, y: 12 }}
-												whileInView={{ opacity: 1, y: 0 }}
-												viewport={{ once: true }}
-												transition={{ delay: 0.3, duration: 0.5 }}
+												initial={{ opacity: 0, y: 20, filter: "blur(8px)" }}
+												whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+												viewport={{ once: true, amount: 0.5 }}
+												transition={{
+													delay: 0.4,
+													duration: 0.7,
+													ease: [0.22, 1, 0.36, 1],
+												}}
 												className="text-gray-600 leading-relaxed mb-6"
 											>
 												A café management system built with PHP and XAMPP,
@@ -942,38 +1213,39 @@ function Projects() {
 							<motion.div variants={projectItemLeft} className="relative">
 								{/* Timeline Dot - Desktop (center) */}
 								<motion.div
-									initial={{ scale: 0, opacity: 0 }}
-									whileInView={{ scale: 1, opacity: 1 }}
-									viewport={{ once: true }}
-									transition={{ duration: 0.5, delay: 0.3 }}
-									className="hidden md:block absolute left-1/2 transform -translate-x-1/2 w-4 h-4 bg-gray-700 rounded-full border-4 border-white shadow-lg z-10"
-								/>
+									variants={timelineDot}
+									className="hidden md:flex absolute left-1/2 transform -translate-x-1/2 w-4 h-4 bg-gray-700 rounded-full border-4 border-white shadow-lg z-10 items-center justify-center"
+								>
+									<motion.div
+										animate={{ scale: [1, 1.5, 1], opacity: [0.5, 0, 0.5] }}
+										transition={{
+											duration: 2,
+											repeat: Infinity,
+											ease: "easeInOut",
+										}}
+										className="absolute w-full h-full rounded-full bg-gray-400"
+									/>
+								</motion.div>
 								{/* Timeline Dot - Mobile (right) */}
 								<motion.div
-									initial={{ scale: 0, opacity: 0 }}
-									whileInView={{ scale: 1, opacity: 1 }}
-									viewport={{ once: true }}
-									transition={{ duration: 0.5, delay: 0.3 }}
-									className="md:hidden absolute right-0 transform translate-x-1/2 w-4 h-4 bg-gray-700 rounded-full border-4 border-white shadow-lg z-10"
-								/>
+									variants={timelineDot}
+									className="md:hidden flex absolute right-0 transform translate-x-1/2 w-4 h-4 bg-gray-700 rounded-full border-4 border-white shadow-lg z-10 items-center justify-center"
+								>
+									<motion.div
+										animate={{ scale: [1, 1.5, 1], opacity: [0.5, 0, 0.5] }}
+										transition={{
+											duration: 2,
+											repeat: Infinity,
+											ease: "easeInOut",
+										}}
+										className="absolute w-full h-full rounded-full bg-gray-400"
+									/>
+								</motion.div>
 
 								{/* Date Badge - Desktop (center) */}
 								<motion.div
-									initial={{ opacity: 0, x: -20 }}
-									whileInView={{ opacity: 1, x: 0 }}
-									viewport={{ once: true }}
-									transition={{ duration: 0.6, delay: 0.2 }}
+									variants={dateBadgeLeft}
 									className="hidden md:block absolute left-1/2 transform -translate-x-1/2 -translate-y-8 px-4 py-1.5 rounded-full bg-white/80 backdrop-blur-md border border-white/50 text-sm font-semibold text-gray-700 shadow-md whitespace-nowrap z-20"
-								>
-									3rd Yr 1st Sem 2025
-								</motion.div>
-								{/* Date Badge - Mobile (right) */}
-								<motion.div
-									initial={{ opacity: 0, x: 20 }}
-									whileInView={{ opacity: 1, x: 0 }}
-									viewport={{ once: true }}
-									transition={{ duration: 0.6, delay: 0.2 }}
-									className="md:hidden absolute right-0 transform translate-x-1/2 -translate-y-8 px-4 py-1.5 rounded-full bg-white/80 backdrop-blur-md border border-white/50 text-sm font-semibold text-gray-700 shadow-md whitespace-nowrap z-20"
 								>
 									3rd Yr 1st Sem 2025
 								</motion.div>
@@ -981,10 +1253,10 @@ function Projects() {
 								{/* Glow background */}
 								<motion.div
 									aria-hidden
-									initial={{ scale: 0.9, opacity: 0 }}
+									initial={{ scale: 0.8, opacity: 0 }}
 									whileInView={{ scale: 1, opacity: 1 }}
-									viewport={{ once: true }}
-									transition={{ duration: 1.2, ease: "easeOut" }}
+									viewport={{ once: true, amount: 0.5 }}
+									transition={{ duration: 1.4, ease: [0.22, 1, 0.36, 1] }}
 									className="absolute -inset-6 rounded-3xl bg-gradient-to-br from-white/40 via-white/10 to-transparent blur-2xl -z-10"
 								/>
 
@@ -1010,19 +1282,27 @@ function Projects() {
 									<div className="w-[10%] shrink-0"></div>
 									<div className="w-[45%] pl-6">
 										<motion.h3
-											initial={{ opacity: 0, y: 12 }}
-											whileInView={{ opacity: 1, y: 0 }}
-											viewport={{ once: true }}
-											transition={{ delay: 0.2, duration: 0.5 }}
+											initial={{ opacity: 0, y: 20, filter: "blur(8px)" }}
+											whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+											viewport={{ once: true, amount: 0.5 }}
+											transition={{
+												delay: 0.3,
+												duration: 0.7,
+												ease: [0.22, 1, 0.36, 1],
+											}}
 											className="text-2xl font-semibold mb-4 tracking-tight"
 										>
 											Vehicle Rental System
 										</motion.h3>
 										<motion.p
-											initial={{ opacity: 0, y: 12 }}
-											whileInView={{ opacity: 1, y: 0 }}
-											viewport={{ once: true }}
-											transition={{ delay: 0.3, duration: 0.5 }}
+											initial={{ opacity: 0, y: 20, filter: "blur(8px)" }}
+											whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+											viewport={{ once: true, amount: 0.5 }}
+											transition={{
+												delay: 0.4,
+												duration: 0.7,
+												ease: [0.22, 1, 0.36, 1],
+											}}
 											className="text-gray-600 leading-relaxed mb-6 max-w-lg"
 										>
 											A PHP-based vehicle rental system using CRUD operations
@@ -1062,22 +1342,31 @@ function Projects() {
 												rental10,
 											]}
 											title="Vehicle Rental System"
+											dateBadge="3rd Yr 1st Sem 2025"
 										/>
 										<div>
 											<motion.h3
-												initial={{ opacity: 0, y: 12 }}
-												whileInView={{ opacity: 1, y: 0 }}
-												viewport={{ once: true }}
-												transition={{ delay: 0.2, duration: 0.5 }}
+												initial={{ opacity: 0, y: 20, filter: "blur(8px)" }}
+												whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+												viewport={{ once: true, amount: 0.5 }}
+												transition={{
+													delay: 0.3,
+													duration: 0.7,
+													ease: [0.22, 1, 0.36, 1],
+												}}
 												className="text-2xl font-semibold mb-4 tracking-tight"
 											>
 												Vehicle Rental System
 											</motion.h3>
 											<motion.p
-												initial={{ opacity: 0, y: 12 }}
-												whileInView={{ opacity: 1, y: 0 }}
-												viewport={{ once: true }}
-												transition={{ delay: 0.3, duration: 0.5 }}
+												initial={{ opacity: 0, y: 20, filter: "blur(8px)" }}
+												whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+												viewport={{ once: true, amount: 0.5 }}
+												transition={{
+													delay: 0.4,
+													duration: 0.7,
+													ease: [0.22, 1, 0.36, 1],
+												}}
 												className="text-gray-600 leading-relaxed mb-6"
 											>
 												A PHP-based vehicle rental system using CRUD operations
