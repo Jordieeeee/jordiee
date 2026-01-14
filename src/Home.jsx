@@ -27,8 +27,17 @@ function Home() {
 	}, []);
 
 	return (
-		<section id="home" className="min-h-screen">
-			<div className="min-h-screen flex items-center justify-center  px-4 sm:px-6">
+		<section
+			id="home"
+			className="
+				min-h-[100svh]
+				flex
+				items-center
+				justify-center
+				pb-32
+			"
+		>
+			<div className="min-h-screen flex items-center justify-center px-4 sm:px-6">
 				<style>{`
 				.typing-cursor {
 					animation: blink 0.7s infinite;

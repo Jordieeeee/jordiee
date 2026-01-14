@@ -201,7 +201,18 @@ function NavBar() {
 	];
 
 	return (
-		<nav className="fixed bottom-0 left-0 right-0 z-50 flex items-center justify-center pb-6 sm:pb-8 md:pb-12 pointer-events-none">
+		<nav
+			className="
+					fixed
+					left-0
+					right-0
+					bottom-[calc(env(safe-area-inset-bottom)+1rem)]
+					z-50
+					flex
+					justify-center
+					pointer-events-none
+				"
+		>
 			<style>{`
 				.glass-nav {
 					background: #ffffff1a;
@@ -240,8 +251,25 @@ function NavBar() {
 					transform: scale(1.15);
 					color: #4b5563;
 				}
+				@media (hover: hover) {
+					.glass-button-active:hover,
+					.glass-button-inactive:hover {
+						transform: scale(1.12);
+					}
+				}
+	
 			`}</style>
-			<div className="flex items-center gap-3 sm:gap-4 md:gap-6 glass-nav rounded-full px-3 sm:px-4 md:px-6 py-3 sm:py-4 md:py-5 pointer-events-auto">
+			<div
+				className="
+					flex items-center
+					gap-2 sm:gap-4
+					glass-nav
+					rounded-full
+					px-3 py-3
+					sm:px-5 sm:py-4
+					pointer-events-auto
+				"
+			>
 				{navItems.map((item) => (
 					<button
 						key={item.id}
@@ -253,11 +281,18 @@ function NavBar() {
 							});
 						}}
 						aria-label={item.label}
-						className={`flex items-center justify-center w-12 sm:w-14 md:w-16 h-12 sm:h-14 md:h-16 rounded-full transition-all duration-300 ${
-							active === item.id
-								? "glass-button-active text-white"
-								: "glass-button-inactive"
-						}`}
+						className={`flex items-center justify-center
+							w-12 h-12
+							sm:w-14 sm:h-14
+							md:w-16 md:h-16
+							rounded-full
+							transition-all duration-300
+							${
+								active === item.id
+									? "glass-button-active text-white"
+									: "glass-button-inactive"
+							}
+						`}
 					>
 						{item.icon}
 					</button>

@@ -9,3 +9,11 @@ html {
 	@apply px-4 py-1.5 text-sm rounded-full bg-gray-200 text-gray-700;
 }
 
+section {
+	scroll-margin-bottom: 140px;
+}
+
+html,
+body {
+	overflow-x: hidden;
+}
