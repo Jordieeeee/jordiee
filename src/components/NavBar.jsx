@@ -40,18 +40,18 @@ function NavBar() {
 					fill="none"
 					xmlns="http://www.w3.org/2000/svg"
 				>
-					<g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+					<g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
 					<g
 						id="SVGRepo_tracerCarrier"
-						stroke-linecap="round"
-						stroke-linejoin="round"
+						strokeLinecap="round"
+						strokeLinejoin="round"
 					></g>
 					<g id="SVGRepo_iconCarrier">
 						<path
 							d="M9 20H7C5.89543 20 5 19.1046 5 18V10.9199C5 10.336 5.25513 9.78132 5.69842 9.40136L10.6984 5.11564C11.4474 4.47366 12.5526 4.47366 13.3016 5.11564L18.3016 9.40136C18.7449 9.78132 19 10.336 19 10.9199V18C19 19.1046 18.1046 20 17 20H15M9 20V14C9 13.4477 9.44772 13 10 13H14C14.5523 13 15 13.4477 15 14V20M9 20H15"
 							stroke="currentColor"
-							stroke-linecap="round"
-							stroke-linejoin="round"
+							strokeLinecap="round"
+							strokeLinejoin="round"
 						></path>
 					</g>
 				</svg>
@@ -67,22 +67,22 @@ function NavBar() {
 					fill="none"
 					xmlns="http://www.w3.org/2000/svg"
 				>
-					<g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+					<g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
 					<g
 						id="SVGRepo_tracerCarrier"
-						stroke-linecap="round"
-						stroke-linejoin="round"
+						strokeLinecap="round"
+						strokeLinejoin="round"
 						stroke="#CCCCCC"
-						stroke-width="0.144"
+						strokeWidth="0.144"
 					></g>
 					<g id="SVGRepo_iconCarrier">
 						{" "}
 						<path
 							d="M5 20V19C5 16.2386 7.23858 14 10 14H14C16.7614 14 19 16.2386 19 19V20M16 7C16 9.20914 14.2091 11 12 11C9.79086 11 8 9.20914 8 7C8 4.79086 9.79086 3 12 3C14.2091 3 16 4.79086 16 7Z"
 							stroke="currentColor"
-							stroke-width="0.9600000000000002"
-							stroke-linecap="round"
-							stroke-linejoin="round"
+							strokeWidth="0.9600000000000002"
+							strokeLinecap="round"
+							strokeLinejoin="round"
 						></path>{" "}
 					</g>
 				</svg>
@@ -98,11 +98,11 @@ function NavBar() {
 					xmlns="http://www.w3.org/2000/svg"
 					fill="#000000"
 				>
-					<g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+					<g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
 					<g
 						id="SVGRepo_tracerCarrier"
-						stroke-linecap="round"
-						stroke-linejoin="round"
+						strokeLinecap="round"
+						strokeLinejoin="round"
 					></g>
 					<g id="SVGRepo_iconCarrier">
 						<path
@@ -124,56 +124,56 @@ function NavBar() {
 					fill="none"
 					xmlns="http://www.w3.org/2000/svg"
 				>
-					<g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+					<g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
 					<g
 						id="SVGRepo_tracerCarrier"
-						stroke-linecap="round"
-						stroke-linejoin="round"
+						strokeLinecap="round"
+						strokeLinejoin="round"
 					></g>
 					<g id="SVGRepo_iconCarrier">
 						{" "}
 						<path
 							d="M2 9C2 7.89543 2.89543 7 4 7H20C21.1046 7 22 7.89543 22 9V20C22 21.1046 21.1046 22 20 22H4C2.89543 22 2 21.1046 2 20V9Z"
 							stroke="currentColor"
-							stroke-width="0.9600000000000002"
-							stroke-linecap="round"
-							stroke-linejoin="round"
+							strokeWidth="0.9600000000000002"
+							strokeLinecap="round"
+							strokeLinejoin="round"
 						></path>{" "}
 						<path
 							d="M16 7V4C16 2.89543 15.1046 2 14 2H10C8.89543 2 8 2.89543 8 4V7"
 							stroke="currentColor"
-							stroke-width="0.9600000000000002"
-							stroke-linecap="round"
-							stroke-linejoin="round"
+							strokeWidth="0.9600000000000002"
+							strokeLinecap="round"
+							strokeLinejoin="round"
 						></path>{" "}
 						<path
 							d="M22 12H2"
 							stroke="currentColor"
-							stroke-width="0.9600000000000002"
-							stroke-linecap="round"
-							stroke-linejoin="round"
+							strokeWidth="0.9600000000000002"
+							strokeLinecap="round"
+							strokeLinejoin="round"
 						></path>{" "}
 						<path
 							d="M7 12V14"
 							stroke="currentColor"
-							stroke-width="0.9600000000000002"
-							stroke-linecap="round"
-							stroke-linejoin="round"
+							strokeWidth="0.9600000000000002"
+							strokeLinecap="round"
+							strokeLinejoin="round"
 						></path>{" "}
 						<path
 							d="M17 12V14"
 							stroke="currentColor"
-							stroke-width="0.9600000000000002"
-							stroke-linecap="round"
-							stroke-linejoin="round"
+							strokeWidth="0.9600000000000002"
+							strokeLinecap="round"
+							strokeLinejoin="round"
 						></path>{" "}
 					</g>
 				</svg>
 			),
 		},
 		{
-			id: "menu",
-			label: "Menu",
+			id: "certificate",
+			label: "Certificate",
 			icon: (
 				<svg
 					className="w-6 sm:w-7 md:w-9 h-6 sm:h-7 md:h-9"
@@ -181,13 +181,13 @@ function NavBar() {
 					xmlns="http://www.w3.org/2000/svg"
 					fill="none"
 					stroke="#000000"
-					stroke-width="0.0019200000000000003"
+					strokeWidth="0.0019200000000000003"
 				>
-					<g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+					<g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
 					<g
 						id="SVGRepo_tracerCarrier"
-						stroke-linecap="round"
-						stroke-linejoin="round"
+						strokeLinecap="round"
+						strokeLinejoin="round"
 					></g>
 					<g id="SVGRepo_iconCarrier">
 						<path

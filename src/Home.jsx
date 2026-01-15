@@ -7,6 +7,7 @@ import {
 	FaCertificate,
 } from "react-icons/fa";
 import { useState, useEffect } from "react";
+import resumePdf from "./assets/resume/RESUME.pdf";
 
 function Home() {
 	const fullText = "Full Stack Web Developer";
@@ -116,17 +117,17 @@ function Home() {
 						{/* Resume Download Button */}
 						<div className="fade-up-element mt-6 sm:mt-8">
 							<a
-								href="/src/RESUME.pdf"
-								download
+								href={resumePdf}
+								download="Mark_Jordan_Javier_RESUME.pdf"
 								className="
-                            group relative inline-block
-                            font-semibold py-2 sm:py-3 px-4 sm:px-6 rounded-full
-                            text-gray-600 text-sm sm:text-base
-                            bg-gradient-to-br from-gray-100 to-gray-200
-                            shadow-lg overflow-hidden
-                            transition-all duration-300 ease-out
-                            hover:-translate-y-1 hover:shadow-xl
-                            active:scale-95 
+								group relative inline-block
+								font-semibold py-2 sm:py-3 px-4 sm:px-6 rounded-full
+								text-gray-600 text-sm sm:text-base
+								bg-gradient-to-br from-gray-100 to-gray-200
+								shadow-lg overflow-hidden
+								transition-all duration-300 ease-out
+								hover:-translate-y-1 hover:shadow-xl
+								active:scale-95 
                         "
 							>
 								{/* Glow overlay */}

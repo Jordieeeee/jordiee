@@ -111,17 +111,17 @@ const ImageCarousel = ({ images, title, dateBadge }) => {
 						version="1.1"
 						id="Layer_1"
 						xmlns="http://www.w3.org/2000/svg"
-						xmlns:xlink="http://www.w3.org/1999/xlink"
+						xmlnsXlink="http://www.w3.org/1999/xlink"
 						viewBox="0 0 512 512"
-						xml:space="preserve"
+						xmlSpace="preserve"
 						stroke="#000000"
-						stroke-width="51.2"
+						strokeWidth="51.2"
 					>
-						<g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+						<g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
 						<g
 							id="SVGRepo_tracerCarrier"
-							stroke-linecap="round"
-							stroke-linejoin="round"
+							strokeLinecap="round"
+							strokeLinejoin="round"
 						></g>
 						<g id="SVGRepo_iconCarrier">
 							{" "}
@@ -152,17 +152,17 @@ const ImageCarousel = ({ images, title, dateBadge }) => {
 						version="1.1"
 						id="Layer_1"
 						xmlns="http://www.w3.org/2000/svg"
-						xmlns:xlink="http://www.w3.org/1999/xlink"
+						xmlnsXlink="http://www.w3.org/1999/xlink"
 						viewBox="0 0 511.893 511.893"
-						xml:space="preserve"
+						xmlSpace="preserve"
 						stroke="#000000"
-						stroke-width="51.189299999999996"
+						strokeWidth="51.189299999999996"
 					>
-						<g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+						<g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
 						<g
 							id="SVGRepo_tracerCarrier"
-							stroke-linecap="round"
-							stroke-linejoin="round"
+							strokeLinecap="round"
+							strokeLinejoin="round"
 						></g>
 						<g id="SVGRepo_iconCarrier">
 							{" "}
@@ -484,20 +484,20 @@ function Projects() {
 							fill="none"
 							xmlns="http://www.w3.org/2000/svg"
 						>
-							<g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+							<g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
 							<g
 								id="SVGRepo_tracerCarrier"
-								stroke-linecap="round"
-								stroke-linejoin="round"
+								strokeLinecap="round"
+								strokeLinejoin="round"
 							></g>
 							<g id="SVGRepo_iconCarrier">
 								{" "}
 								<path
 									d="M7 8L3 11.6923L7 16M17 8L21 11.6923L17 16M14 4L10 20"
 									stroke="#000000"
-									stroke-width="2.04"
-									stroke-linecap="round"
-									stroke-linejoin="round"
+									strokeWidth="2.04"
+									strokeLinecap="round"
+									strokeLinejoin="round"
 								></path>{" "}
 							</g>
 						</svg>
@@ -1107,8 +1107,11 @@ function Projects() {
 										>
 											A café management system built with PHP and XAMPP,
 											featuring full CRUD functionality for managing products,
-											orders, and records, with an implemented chatbot to
-											support customer inquiries and streamline interaction.
+											orders, and records. The system includes an integrated
+											chatbot to support customer inquiries and streamline
+											interactions, along with a Dark Mode interface for
+											improved accessibility, modern aesthetics, and comfortable
+											use in low-light environments.
 										</motion.p>
 										<div className="flex flex-wrap gap-3">
 											{["PHP", "XAMPP", "CRUD", "MySQL"].map((tool) => (
@@ -1189,8 +1192,11 @@ function Projects() {
 											>
 												A café management system built with PHP and XAMPP,
 												featuring full CRUD functionality for managing products,
-												orders, and records, with an implemented chatbot to
-												support customer inquiries and streamline interaction.
+												orders, and records. The system includes an integrated
+												chatbot to support customer inquiries and streamline
+												interactions, along with a Dark Mode interface for
+												improved accessibility, modern aesthetics, and
+												comfortable use in low-light environments.
 											</motion.p>
 											<div className="flex flex-wrap gap-3">
 												{["PHP", "XAMPP", "CRUD", "MySQL"].map((tool) => (

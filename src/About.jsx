@@ -1,6 +1,6 @@
 import profileImg from "./assets/me/jords.png"; // change path if needed
 import { motion } from "framer-motion";
-import { FiUser } from "react-icons/fi";
+import { FiInfo } from "react-icons/fi";
 
 function About() {
 	const container = {
@@ -56,7 +56,7 @@ function About() {
 							variants={item}
 							className="flex items-center gap-3 mb-5"
 						>
-							<FiUser className="text-4xl md:text-5xl text-gray-900" />
+							<FiInfo className="text-4xl md:text-5xl text-gray-900" />
 							<motion.h2
 								initial={{ opacity: 0, y: 20, letterSpacing: "0.2em" }}
 								whileInView={{ opacity: 1, y: 0, letterSpacing: "0em" }}
