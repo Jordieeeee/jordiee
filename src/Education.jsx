@@ -31,7 +31,7 @@ import rental5 from "./assets/proj/vehiRental/vRental5.png";
 import rental6 from "./assets/proj/vehiRental/vRental6.png";
 import rental7 from "./assets/proj/vehiRental/vRental7.png";
 import rental8 from "./assets/proj/vehiRental/vRental8.png";
-import rental9 from "./assets/proj/vehiRental/vRental9.png";
+import rental9 from "./assets/proj/vehiRental/vrental9.png";
 import rental10 from "./assets/proj/vehiRental/vRental10.png";
 
 const ImageCarousel = ({ images, title, dateBadge }) => {
