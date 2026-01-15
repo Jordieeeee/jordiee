@@ -58,7 +58,7 @@ function Home() {
 					<div className="md:hidden flex justify-center order-first -mt-24 sm:-mt-20 mb-8 sm:mb-12">
 						<div className="relative rounded-full overflow-hidden w-64 h-64 sm:w-72 sm:h-72 border-4 border-gray-300 shadow-2xl hover:shadow-3xl transition-shadow duration-500 group">
 							<img
-								src="/src/assets/me/jordie.jpg"
+								src={me}
 								alt="Profile"
 								className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
 							/>
