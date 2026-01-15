@@ -34,9 +34,6 @@ import rental8 from "./assets/proj/vehiRental/vRental8.png";
 import rental9 from "./assets/proj/vehiRental/vRental9.png";
 import rental10 from "./assets/proj/vehiRental/vRental10.png";
 
-// import updated1 from "./assets/proj/newPortfolio/up1.png";
-// import updated2 from "./assets/proj/newPortfolio/up2.png";
-
 const ImageCarousel = ({ images, title, dateBadge }) => {
 	const [currentIndex, setCurrentIndex] = useState(0);
 
