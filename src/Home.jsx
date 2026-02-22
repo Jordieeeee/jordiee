@@ -156,38 +156,63 @@ function Home() {
 						</p>
 
 						{/* Resume Download Button */}
-						<div className="fade-up-element mt-6 sm:mt-8">
-							<motion.a
-								href={resumePdf}
-								download="Mark_Jordan_Javier_RESUME.pdf"
-								className="
-								group relative inline-block
-								font-semibold py-2 sm:py-3 px-4 sm:px-6 rounded-full
-								text-gray-600 dark:text-gray-200 text-sm sm:text-base
-								bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-700 dark:to-gray-800
-								shadow-lg dark:shadow-gray-900/50 overflow-hidden
-							"
-								whileHover={{ y: -4, scale: 1.02 }}
-								whileTap={{ scale: 0.98 }}
-								transition={{ type: "spring", stiffness: 400, damping: 20 }}
-							>
-								{/* Glow overlay */}
-								<span
+							<div className="fade-up-element mt-6 sm:mt-8">
+								<motion.a
+									href={resumePdf}
+									download="Mark_Jordan_Javier_RESUME.pdf"
 									className="
+									group relative inline-block
+									font-semibold py-3 sm:py-4 px-6 sm:px-8 rounded-full
+									text-white text-sm sm:text-base
+									bg-gradient-to-r from-blue-600 via-blue-600 to-blue-700 dark:from-blue-500 dark:via-blue-500 dark:to-blue-600
+									shadow-xl dark:shadow-blue-900/30 overflow-hidden button-3d
+								"
+									initial={{ opacity: 0, y: 30 }}
+									animate={{ opacity: 1, y: 0 }}
+									transition={{ type: "spring", stiffness: 300, damping: 20, delay: 0.4 }}
+									whileHover={{ 
+										y: -8, 
+										scale: 1.1,
+										boxShadow: "0 25px 50px rgba(59, 130, 246, 0.5)"
+									}}
+									whileTap={{ scale: 0.95 }}
+								>
+									{/* Shimmer effect background */}
+									<motion.span
+										className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+										style={{
+											background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent)",
+										}}
+										animate={{ x: ['-100%', '100%'] }}
+										transition={{ repeat: Infinity, duration: 2 }}
+									/>
+
+									{/* Glow overlay */}
+									<span
+										className="
                             absolute inset-0 rounded-full 
-                            bg-gradient-to-tr from-blue-400/20 dark:from-blue-500/15 to-transparent 
+                            bg-gradient-to-tr from-blue-400/40 dark:from-blue-400/30 to-transparent 
                             opacity-0 group-hover:opacity-100 
                             transition-opacity duration-500 ease-out
                         "
-								></span>
+									></span>
 
-								{/* Button Content */}
-								<span className="relative flex items-center gap-1 sm:gap-2">
-									<span className="text-base sm:text-lg">📄</span>
-									<span>Download Resume</span>
-								</span>
-							</motion.a>
-						</div>
+									{/* Button Content */}
+									<motion.span 
+										className="relative flex items-center gap-2"
+										whileHover={{ x: 3 }}
+									>
+										<motion.span 
+											className="text-lg"
+											whileHover={{ scale: 1.25, rotate: 15 }}
+											transition={{ type: "spring", stiffness: 400, damping: 15 }}
+										>
+											📄
+										</motion.span>
+										<span>Download Resume</span>
+									</motion.span>
+								</motion.a>
+							</div>
 
 						{/* SOCIAL ICONS */}
 						<motion.div 

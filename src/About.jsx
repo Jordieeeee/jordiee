@@ -117,25 +117,35 @@ function About() {
 								<p className="text-medium font-medium text-gray-700 dark:text-gray-200 mb-2">
 									UI / UX
 								</p>
-								<div className="flex flex-wrap gap-2">
-									{["Figma"].map((tool) => (
-										<motion.span
-											variants={badge}
-											whileHover={{ scale: 1.05 }}
-											className="
-											px-4 py-1.5 rounded-full text-sm font-medium
-											bg-white/60 dark:bg-gray-700 backdrop-blur-md
-											border border-white/40 dark:border-gray-600/40
-											text-gray-700 dark:text-gray-200
-											shadow-sm
-											hover:bg-white/80 dark:hover:bg-gray-600
-											transition
-											"
-										>
-											{tool}
-										</motion.span>
-									))}
-								</div>
+									<div className="flex flex-wrap gap-2">
+										{["Figma"].map((tool) => (
+											<motion.span
+												key={tool}
+												variants={badge}
+												whileHover={{ 
+													scale: 1.12, 
+													y: -4,
+													rotateX: 8,
+													rotateY: 4,
+													boxShadow: "0 10px 25px rgba(59, 130, 246, 0.25)"
+												}}
+												whileTap={{ scale: 0.98 }}
+												className="
+												px-4 py-1.5 rounded-full text-sm font-medium
+												bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-900/30 dark:to-purple-900/30 
+												backdrop-blur-md
+												border border-blue-200/60 dark:border-blue-600/40
+												text-gray-700 dark:text-gray-200
+												shadow-md dark:shadow-lg
+												hover:shadow-lg
+												transition-all duration-300
+												hover:bg-blue-100 dark:hover:bg-blue-900/40
+												"
+											>
+												{tool}
+											</motion.span>
+										))}
+									</div>
 							</div>
 
 							{/* Frontend */}
@@ -143,27 +153,40 @@ function About() {
 								<p className="text-medium font-medium text-gray-700 dark:text-gray-200 mb-2">
 									Frontend
 								</p>
-								<div className="flex flex-wrap gap-2">
-									{["JavaScript", "React", "Tailwind CSS", "Prettier"].map(
-										(tool) => (
-											<motion.span
-												variants={badge}
-												whileHover={{ scale: 1.05 }}
-												className="
-											px-4 py-1.5 rounded-full text-sm font-medium
-											bg-white/60 dark:bg-gray-700 backdrop-blur-md
-											border border-white/40 dark:border-gray-600/40
-											text-gray-700 dark:text-gray-200
-											shadow-sm
-											hover:bg-white/80 dark:hover:bg-gray-600
-											transition
-											"
-											>
-												{tool}
-											</motion.span>
-										)
-									)}
-								</div>
+									<div className="flex flex-wrap gap-2">
+										{["JavaScript", "React", "Tailwind CSS", "Prettier"].map(
+											(tool, idx) => (
+												<motion.span
+													key={tool}
+													variants={badge}
+													whileHover={{ 
+														scale: 1.12, 
+														y: -4,
+														rotateX: 8,
+														rotateY: 4,
+														boxShadow: "0 10px 25px rgba(59, 130, 246, 0.25)"
+													}}
+													whileTap={{ scale: 0.98 }}
+													initial={{ opacity: 0, y: 10 }}
+													animate={{ opacity: 1, y: 0 }}
+													transition={{ delay: idx * 0.05 }}
+													className="
+												px-4 py-1.5 rounded-full text-sm font-medium
+												bg-gradient-to-r from-blue-50 to-cyan-50 dark:from-blue-900/30 dark:to-cyan-900/30 
+												backdrop-blur-md
+												border border-blue-200/60 dark:border-blue-600/40
+												text-gray-700 dark:text-gray-200
+												shadow-md dark:shadow-lg
+												hover:shadow-lg
+												transition-all duration-300
+												hover:bg-blue-100 dark:hover:bg-blue-900/40
+												"
+												>
+													{tool}
+												</motion.span>
+											)
+										)}
+									</div>
 							</div>
 
 							{/* Backend */}
@@ -171,25 +194,38 @@ function About() {
 								<p className="text-medium font-medium text-gray-700 dark:text-gray-200 mb-2">
 									Backend
 								</p>
-								<div className="flex flex-wrap gap-2">
-									{["PHP", "MySQL", "Python", "Java"].map((tool) => (
-										<motion.span
-											variants={badge}
-											whileHover={{ scale: 1.05 }}
-											className="
-											px-4 py-1.5 rounded-full text-sm font-medium
-											bg-white/60 dark:bg-gray-700 backdrop-blur-md
-											border border-white/40 dark:border-gray-600/40
-											text-gray-700 dark:text-gray-200
-											shadow-sm
-											hover:bg-white/80 dark:hover:bg-gray-600
-											transition
-											"
-										>
-											{tool}
-										</motion.span>
-									))}
-								</div>
+									<div className="flex flex-wrap gap-2">
+										{["PHP", "MySQL", "Python", "Java"].map((tool, idx) => (
+											<motion.span
+												key={tool}
+												variants={badge}
+												whileHover={{ 
+													scale: 1.12, 
+													y: -4,
+													rotateX: 8,
+													rotateY: 4,
+													boxShadow: "0 10px 25px rgba(168, 85, 247, 0.25)"
+												}}
+												whileTap={{ scale: 0.98 }}
+												initial={{ opacity: 0, y: 10 }}
+												animate={{ opacity: 1, y: 0 }}
+												transition={{ delay: idx * 0.05 }}
+												className="
+												px-4 py-1.5 rounded-full text-sm font-medium
+												bg-gradient-to-r from-purple-50 to-pink-50 dark:from-purple-900/30 dark:to-pink-900/30 
+												backdrop-blur-md
+												border border-purple-200/60 dark:border-purple-600/40
+												text-gray-700 dark:text-gray-200
+												shadow-md dark:shadow-lg
+												hover:shadow-lg
+												transition-all duration-300
+												hover:bg-purple-100 dark:hover:bg-purple-900/40
+												"
+											>
+												{tool}
+											</motion.span>
+										))}
+									</div>
 							</div>
 
 							{/* Cloud */}
@@ -197,25 +233,38 @@ function About() {
 								<p className="text-medium font-medium text-gray-700 dark:text-gray-200 mb-2">
 									Cloud
 								</p>
-								<div className="flex flex-wrap gap-2">
-									{["Docker", "XAMPP"].map((tool) => (
-										<motion.span
-											variants={badge}
-											whileHover={{ scale: 1.05 }}
-											className="
-											px-4 py-1.5 rounded-full text-sm font-medium
-											bg-white/60 dark:bg-gray-700 backdrop-blur-md
-											border border-white/40 dark:border-gray-600/40
-											text-gray-700 dark:text-gray-200
-											shadow-sm
-											hover:bg-white/80 dark:hover:bg-gray-600
-											transition
-											"
-										>
-											{tool}
-										</motion.span>
-									))}
-								</div>
+									<div className="flex flex-wrap gap-2">
+										{["Docker", "XAMPP"].map((tool, idx) => (
+											<motion.span
+												key={tool}
+												variants={badge}
+												whileHover={{ 
+													scale: 1.12, 
+													y: -4,
+													rotateX: 8,
+													rotateY: 4,
+													boxShadow: "0 10px 25px rgba(34, 197, 94, 0.25)"
+												}}
+												whileTap={{ scale: 0.98 }}
+												initial={{ opacity: 0, y: 10 }}
+												animate={{ opacity: 1, y: 0 }}
+												transition={{ delay: idx * 0.05 }}
+												className="
+												px-4 py-1.5 rounded-full text-sm font-medium
+												bg-gradient-to-r from-green-50 to-emerald-50 dark:from-green-900/30 dark:to-emerald-900/30 
+												backdrop-blur-md
+												border border-green-200/60 dark:border-green-600/40
+												text-gray-700 dark:text-gray-200
+												shadow-md dark:shadow-lg
+												hover:shadow-lg
+												transition-all duration-300
+												hover:bg-green-100 dark:hover:bg-green-900/40
+												"
+											>
+												{tool}
+											</motion.span>
+										))}
+									</div>
 							</div>
 
 							{/* CMS & No-Code */}
@@ -223,25 +272,38 @@ function About() {
 								<p className="text-medium font-medium text-gray-700 dark:text-gray-200 mb-2">
 									CMS & No-Code
 								</p>
-								<div className="flex flex-wrap gap-2">
-									{["n8n"].map((tool) => (
-										<motion.span
-											variants={badge}
-											whileHover={{ scale: 1.05 }}
-											className="
-											px-4 py-1.5 rounded-full text-sm font-medium
-											bg-white/60 dark:bg-gray-700 backdrop-blur-md
-											border border-white/40 dark:border-gray-600/40
-											text-gray-700 dark:text-gray-200
-											shadow-sm
-											hover:bg-white/80 dark:hover:bg-gray-600
-											transition
-											"
-										>
-											{tool}
-										</motion.span>
-									))}
-								</div>
+									<div className="flex flex-wrap gap-2">
+										{["n8n"].map((tool, idx) => (
+											<motion.span
+												key={tool}
+												variants={badge}
+												whileHover={{ 
+													scale: 1.12, 
+													y: -4,
+													rotateX: 8,
+													rotateY: 4,
+													boxShadow: "0 10px 25px rgba(249, 115, 22, 0.25)"
+												}}
+												whileTap={{ scale: 0.98 }}
+												initial={{ opacity: 0, y: 10 }}
+												animate={{ opacity: 1, y: 0 }}
+												transition={{ delay: idx * 0.05 }}
+												className="
+												px-4 py-1.5 rounded-full text-sm font-medium
+												bg-gradient-to-r from-orange-50 to-red-50 dark:from-orange-900/30 dark:to-red-900/30 
+												backdrop-blur-md
+												border border-orange-200/60 dark:border-orange-600/40
+												text-gray-700 dark:text-gray-200
+												shadow-md dark:shadow-lg
+												hover:shadow-lg
+												transition-all duration-300
+												hover:bg-orange-100 dark:hover:bg-orange-900/40
+												"
+											>
+												{tool}
+											</motion.span>
+										))}
+									</div>
 							</div>
 
 							{/* Developer Tools */}
@@ -249,32 +311,45 @@ function About() {
 								<p className="text-medium font-medium text-gray-700 dark:text-gray-200 mb-2">
 									Developer Tools
 								</p>
-								<div className="flex flex-wrap gap-2">
-									{[
-										"GitHub",
-										"VS Code",
-										"Cursor",
-										"IntelliJ IDEA",
-										"PyCharm",
-										"NetBeans",
-										"Xcode",
-									].map((tool) => (
-										<motion.span
-											variants={badge}
-											whileHover={{ scale: 1.05 }}
-											className="
-											px-4 py-1.5 rounded-full text-sm font-medium
-											bg-white/60 dark:bg-gray-700 backdrop-blur-md
-											border border-white/40 dark:border-gray-600/40
-											text-gray-700 dark:text-gray-200
-											shadow-sm
-											hover:bg-white/80 dark:hover:bg-gray-600
-											transition
-											"
-										>
-											{tool}
-										</motion.span>
-									))}
+									<div className="flex flex-wrap gap-2">
+										{[
+											"GitHub",
+											"VS Code",
+											"Cursor",
+											"IntelliJ IDEA",
+											"PyCharm",
+											"NetBeans",
+											"Xcode",
+										].map((tool, idx) => (
+											<motion.span
+												key={tool}
+												variants={badge}
+												whileHover={{ 
+													scale: 1.12, 
+													y: -4,
+													rotateX: 8,
+													rotateY: 4,
+													boxShadow: "0 10px 25px rgba(139, 92, 246, 0.25)"
+												}}
+												whileTap={{ scale: 0.98 }}
+												initial={{ opacity: 0, y: 10 }}
+												animate={{ opacity: 1, y: 0 }}
+												transition={{ delay: idx * 0.05 }}
+												className="
+												px-4 py-1.5 rounded-full text-sm font-medium
+												bg-gradient-to-r from-violet-50 to-indigo-50 dark:from-violet-900/30 dark:to-indigo-900/30 
+												backdrop-blur-md
+												border border-violet-200/60 dark:border-violet-600/40
+												text-gray-700 dark:text-gray-200
+												shadow-md dark:shadow-lg
+												hover:shadow-lg
+												transition-all duration-300
+												hover:bg-violet-100 dark:hover:bg-violet-900/40
+												"
+											>
+												{tool}
+											</motion.span>
+										))}
 								</div>
 							</div>
 						</div>
