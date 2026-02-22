@@ -39,17 +39,22 @@ function Job() {
 	};
 
 	return (
-		<section id="work" className="min-h-screen">
-			<div className="min-h-screen flex items-center justify-center px-6 py-20">
+		<section id="work" className="min-h-screen relative overflow-hidden">
+			{/* Decorative Background */}
+			<div className="absolute top-40 right-20 w-96 h-96 bg-cyan-200/10 dark:bg-cyan-400/10 rounded-full blur-3xl pointer-events-none" />
+			<div className="absolute bottom-20 left-0 w-80 h-80 bg-indigo-200/10 dark:bg-indigo-400/10 rounded-full blur-3xl pointer-events-none" />
+			
+			<div className="min-h-screen flex items-center justify-center px-6 py-20 relative z-10">
 				{/* Glass Card */}
 				<motion.div
-					initial={{ opacity: 0, y: 60 }}
-					whileInView={{ opacity: 1, y: 0 }}
+					initial={{ opacity: 0, y: 60, rotateX: 10 }}
+					whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
 					viewport={{ once: true, amount: 0.1 }}
 					transition={{ duration: 0.8, ease: "easeOut" }}
 					className="relative max-w-5xl w-full p-10 rounded-3xl bg-white/70 dark:bg-gray-800/70 backdrop-blur-2xl
 				border border-white/50 dark:border-gray-700/50
-				shadow-[0_20px_60px_-15px_rgba(0,0,0,0.25)] dark:shadow-[0_20px_60px_-15px_rgba(0,0,0,0.5)]"
+				shadow-[0_20px_60px_-15px_rgba(0,0,0,0.25)] dark:shadow-[0_20px_60px_-15px_rgba(0,0,0,0.5)] card-3d"
+					whileHover={{ y: -8, rotateX: 0, rotateY: 2 }}
 				>
 					<div className="absolute inset-0 -z-10 rounded-3xl bg-gradient-to-br from-white/40 dark:from-gray-700/40 via-transparent to-white/10 dark:to-gray-800/10" />
 

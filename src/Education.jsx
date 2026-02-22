@@ -46,9 +46,9 @@ const ImageCarousel = ({ images, title, dateBadge }) => {
 
 	return (
 		<motion.div
-			whileHover={{ scale: 1.03, y: -6 }}
-			transition={{ type: "spring", stiffness: 200, damping: 18 }}
-			className="relative group"
+			whileHover={{ scale: 1.08, y: -10, rotateX: 5, rotateY: 2 }}
+			transition={{ type: "spring", stiffness: 200, damping: 15 }}
+			className="relative group card-3d perspective"
 		>
 			<div
 				className="
@@ -355,17 +355,22 @@ function Projects() {
 	};
 
 	return (
-		<section id="education" className="min-h-screen relative z-0">
-			<div className="min-h-screen flex items-center justify-center px-6 py-20">
+		<section id="education" className="min-h-screen relative z-0 overflow-hidden">
+			{/* Decorative Background */}
+			<div className="absolute top-0 right-0 w-96 h-96 bg-pink-200/10 dark:bg-pink-400/10 rounded-full blur-3xl pointer-events-none" />
+			<div className="absolute bottom-40 left-0 w-80 h-80 bg-orange-200/10 dark:bg-orange-400/10 rounded-full blur-3xl pointer-events-none" />
+			
+			<div className="min-h-screen flex items-center justify-center px-6 py-20 relative z-10">
 				{/* Glass Card */}
 				<motion.div
 					key={animationKey}
-					initial={{ opacity: 0, y: 60 }}
-					animate={{ opacity: 1, y: 0 }}
+					initial={{ opacity: 0, y: 60, rotateX: 10 }}
+					animate={{ opacity: 1, y: 0, rotateX: 0 }}
 					transition={{ duration: 0.8, ease: "easeOut" }}
 					className="relative max-w-5xl w-full p-10 rounded-3xl bg-white/70 dark:bg-gray-800 backdrop-blur-2xl
 					border border-white/50 dark:border-gray-700
-					shadow-[0_20px_60px_-15px_rgba(0,0,0,0.25)] dark:shadow-[0_20px_60px_-15px_rgba(0,0,0,0.5)]"
+					shadow-[0_20px_60px_-15px_rgba(0,0,0,0.25)] dark:shadow-[0_20px_60px_-15px_rgba(0,0,0,0.5)] card-3d"
+					whileHover={{ y: -8, rotateX: 0, rotateY: 2 }}
 				>
 					<div className="absolute inset-0 -z-10 rounded-3xl bg-gradient-to-br from-white/40 dark:from-gray-700/40 via-transparent to-white/10 dark:to-gray-800/10" />
 					<motion.div

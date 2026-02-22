@@ -10,6 +10,7 @@ import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
 import resumePdf from "./assets/resume/RESUME.pdf";
 import me from "./assets/me/jordie.jpg";
+import ThreeDBackground from "./components/ThreeDBackground";
 
 function Home() {
 	const fullText = "Full Stack Web Developer";
@@ -38,8 +39,11 @@ function Home() {
 				items-center
 				justify-center
 				pb-32
+				relative
+				parallax
 			"
 		>
+			<ThreeDBackground />
 			<div className="min-h-screen flex items-center justify-center px-4 sm:px-6">
 				<style>{`
 				.typing-cursor {
@@ -61,10 +65,15 @@ function Home() {
 					{/* TOP IMAGE FOR MOBILE */}
 					<div className="md:hidden flex justify-center order-first mt-8 sm:mt-4 mb-8 sm:mb-12">
 						<motion.div
-							className="relative rounded-full overflow-hidden w-64 h-64 sm:w-72 sm:h-72 border-4 border-gray-300 dark:border-gray-600 shadow-2xl dark:shadow-gray-900/50"
+							className="relative rounded-full overflow-hidden w-64 h-64 sm:w-72 sm:h-72 border-4 border-gray-300 dark:border-gray-600 shadow-2xl dark:shadow-gray-900/50 card-3d"
+							initial={{ opacity: 0, scale: 0.8 }}
+							animate={{ opacity: 1, scale: 1 }}
+							transition={{ duration: 0.8, delay: 0.2 }}
 							whileHover={{
-								scale: 1.02,
-								boxShadow: "0 25px 50px -15px rgba(59,130,246,0.35)",
+								scale: 1.05,
+								rotateX: 10,
+								rotateY: 10,
+								boxShadow: "0 25px 50px -15px rgba(59,130,246,0.5)",
 							}}
 							transition={{ duration: 0.6, ease: "easeOut" }}
 						>
@@ -89,8 +98,17 @@ function Home() {
 						<div className="flex items-center gap-3 mb-4 flex-wrap">
 							{/* Name */}
 							<motion.span
-								className="px-4 py-1 text-xl sm:text-2xl font-bold rounded-full bg-gray-300 dark:bg-gray-700 text-gray-700 dark:text-gray-200 cursor-default"
-								whileHover={{ scale: 1.05, y: -2 }}
+								className="px-4 py-1 text-xl sm:text-2xl font-bold rounded-full bg-gradient-to-r from-blue-100 to-blue-200 dark:from-blue-900/40 dark:to-blue-800/40 text-gray-700 dark:text-gray-200 cursor-default button-3d border border-blue-300/50 dark:border-blue-700/50"
+								initial={{ opacity: 0, y: 20, rotateZ: -5 }}
+								animate={{ opacity: 1, y: 0, rotateZ: 0 }}
+								transition={{ duration: 0.6, delay: 0.1 }}
+								whileHover={{ 
+									scale: 1.08, 
+									y: -4,
+									rotateZ: 3,
+									boxShadow: "0 10px 30px rgba(59, 130, 246, 0.3)"
+								}}
+								whileTap={{ scale: 0.98 }}
 								transition={{ type: "spring", stiffness: 300, damping: 20 }}
 							>
 								Mark Jordan Javier
@@ -125,10 +143,15 @@ function Home() {
 							<span>Batangas, Philippines</span>
 						</div>
 
-						<h1 className="text-3xl sm:text-5xl md:text-6xl font-bold text-gray-900 dark:text-white leading-tight">
+						<motion.h1 
+							className="text-3xl sm:text-5xl md:text-6xl font-bold text-gray-900 dark:text-white leading-tight"
+							initial={{ opacity: 0, x: -50 }}
+							animate={{ opacity: 1, x: 0 }}
+							transition={{ duration: 0.8, delay: 0.2 }}
+						>
 							{displayedText}
 							<span className="typing-cursor">|</span>
-						</h1>
+						</motion.h1>
 						<p className="mt-5 text-gray-600 dark:text-gray-300 max-w-lg text-base sm:text-lg">
 							A BS Information Technology student from Batangas State University
 							- TNEU.
@@ -169,12 +192,30 @@ function Home() {
 						</div>
 
 						{/* SOCIAL ICONS */}
-						<div className="mt-6 flex items-center gap-5 text-2xl sm:text-3xl">
+						<motion.div 
+							className="mt-6 flex items-center gap-5 text-2xl sm:text-3xl"
+							initial="hidden"
+							animate="visible"
+							variants={{
+								hidden: {},
+								visible: {
+									transition: {
+										staggerChildren: 0.1,
+										delayChildren: 0.5,
+									},
+								},
+							}}
+						>
 							<motion.a
 								href="https://www.facebook.com/markjordan.javier"
 								target="_blank"
-								className="text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400"
-								whileHover={{ scale: 1.2, y: -3 }}
+								className="text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 button-3d"
+								variants={{
+									hidden: { opacity: 0, scale: 0 },
+									visible: { opacity: 1, scale: 1 },
+								}}
+								whileHover={{ scale: 1.3, y: -5, rotateZ: 10 }}
+								whileTap={{ scale: 0.9 }}
 								transition={{ type: "spring", stiffness: 400, damping: 15 }}
 							>
 								<FaFacebook />
@@ -183,8 +224,13 @@ function Home() {
 							<motion.a
 								href="https://github.com/Jordieeeee"
 								target="_blank"
-								className="text-gray-700 dark:text-gray-200 hover:text-gray-900 dark:hover:text-white"
-								whileHover={{ scale: 1.2, y: -3 }}
+								className="text-gray-700 dark:text-gray-200 hover:text-gray-900 dark:hover:text-white button-3d"
+								variants={{
+									hidden: { opacity: 0, scale: 0 },
+									visible: { opacity: 1, scale: 1 },
+								}}
+								whileHover={{ scale: 1.3, y: -5, rotateZ: -10 }}
+								whileTap={{ scale: 0.9 }}
 								transition={{ type: "spring", stiffness: 400, damping: 15 }}
 							>
 								<FaGithub />
@@ -193,8 +239,13 @@ function Home() {
 							<motion.a
 								href="https://www.linkedin.com/in/mark-jordan-javier-29b72935a/"
 								target="_blank"
-								className="text-gray-700 dark:text-gray-200 hover:text-blue-500 dark:hover:text-blue-400"
-								whileHover={{ scale: 1.2, y: -3 }}
+								className="text-gray-700 dark:text-gray-200 hover:text-blue-500 dark:hover:text-blue-400 button-3d"
+								variants={{
+									hidden: { opacity: 0, scale: 0 },
+									visible: { opacity: 1, scale: 1 },
+								}}
+								whileHover={{ scale: 1.3, y: -5, rotateZ: 10 }}
+								whileTap={{ scale: 0.9 }}
 								transition={{ type: "spring", stiffness: 400, damping: 15 }}
 							>
 								<FaLinkedin />
@@ -202,22 +253,32 @@ function Home() {
 
 							<motion.a
 								href="mailto:javiermarkjordan@email.com"
-								className="text-gray-700 dark:text-gray-200 hover:text-red-500 dark:hover:text-red-400"
-								whileHover={{ scale: 1.2, y: -3 }}
+								className="text-gray-700 dark:text-gray-200 hover:text-red-500 dark:hover:text-red-400 button-3d"
+								variants={{
+									hidden: { opacity: 0, scale: 0 },
+									visible: { opacity: 1, scale: 1 },
+								}}
+								whileHover={{ scale: 1.3, y: -5, rotateZ: -10 }}
+								whileTap={{ scale: 0.9 }}
 								transition={{ type: "spring", stiffness: 400, damping: 15 }}
 							>
 								<FaEnvelope />
 							</motion.a>
-						</div>
+						</motion.div>
 					</div>
 
 					{/* RIGHT IMAGE FOR DESKTOP */}
 					<div className="hidden md:flex justify-center">
 						<motion.div
-							className="relative rounded-full overflow-hidden w-80 h-80 border-4 border-gray-300 dark:border-gray-600 shadow-2xl dark:shadow-gray-900/50"
+							className="relative rounded-full overflow-hidden w-80 h-80 border-4 border-gray-300 dark:border-gray-600 shadow-2xl dark:shadow-gray-900/50 card-3d"
+							initial={{ opacity: 0, scale: 0.8, x: 50 }}
+							animate={{ opacity: 1, scale: 1, x: 0 }}
+							transition={{ duration: 0.8, delay: 0.3 }}
 							whileHover={{
-								scale: 1.03,
-								boxShadow: "0 25px 50px -15px rgba(59,130,246,0.4)",
+								scale: 1.08,
+								rotateX: 15,
+								rotateY: 15,
+								boxShadow: "0 30px 60px -15px rgba(59,130,246,0.6)",
 							}}
 							transition={{ duration: 0.6, ease: "easeOut" }}
 						>
