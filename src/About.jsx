@@ -1,4 +1,4 @@
-import profileImg from "./assets/me/portrait.png";
+import profileImg from "./assets/me/portrait.webp";
 import { motion } from "framer-motion";
 import { useState } from "react";
 import { FiMapPin, FiCalendar, FiMail } from "react-icons/fi";

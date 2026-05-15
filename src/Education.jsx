@@ -1,41 +1,57 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import { FiBookOpen } from "react-icons/fi";
-import { useState, useRef } from "react";
+import { useRef } from "react";
 import TiltCard from "./components/TiltCard";
-import portfolio1 from "./assets/proj/1stPortfolio/portfolio1.png";
-import portfolio2 from "./assets/proj/1stPortfolio/portfolio2.png";
-import portfolio3 from "./assets/proj/1stPortfolio/portfolio3.png";
-import portfolio4 from "./assets/proj/1stPortfolio/portfolio4.png";
-import thrift1 from "./assets/proj/thriftStore/img1.png";
-import thrift2 from "./assets/proj/thriftStore/img2.png";
-import thrift3 from "./assets/proj/thriftStore/img3.png";
-import thrift4 from "./assets/proj/thriftStore/img4.png";
-import thrift5 from "./assets/proj/thriftStore/img5.png";
-import time1 from "./assets/proj/timeSched/TSS1.jpeg";
-import time2 from "./assets/proj/timeSched/TSS2.jpeg";
-import time3 from "./assets/proj/timeSched/TSS3.jpeg";
-import cafe1 from "./assets/proj/batCafe/batCafe1.png";
-import cafe2 from "./assets/proj/batCafe/batCafe2.png";
-import cafe3 from "./assets/proj/batCafe/batCafe3.png";
-import cafe4 from "./assets/proj/batCafe/batCafe4.png";
-import cafe5 from "./assets/proj/batCafe/batCafe5.png";
-import cafe6 from "./assets/proj/batCafe/batCafe6.png";
-import cafe7 from "./assets/proj/batCafe/batCafe7.png";
-import cafe8 from "./assets/proj/batCafe/batCafe8.png";
-import cafe9 from "./assets/proj/batCafe/batCafe9.png";
-import cafe10 from "./assets/proj/batCafe/batCafe10.png";
-import rental1 from "./assets/proj/vehiRental/vRental1.png";
-import rental2 from "./assets/proj/vehiRental/vRental2.png";
-import rental3 from "./assets/proj/vehiRental/vRental3.png";
-import rental4 from "./assets/proj/vehiRental/vRental4.png";
-import rental5 from "./assets/proj/vehiRental/vRental5.png";
-import rental6 from "./assets/proj/vehiRental/vRental6.png";
-import rental7 from "./assets/proj/vehiRental/vRental7.png";
-import rental8 from "./assets/proj/vehiRental/vRental8.png";
-import rental9 from "./assets/proj/vehiRental/vrental9.png";
-import rental10 from "./assets/proj/vehiRental/vRental10.png";
+import portfolio1 from "./assets/proj/1stPortfolio/portfolio1.webp";
+import portfolio2 from "./assets/proj/1stPortfolio/portfolio2.webp";
+import portfolio3 from "./assets/proj/1stPortfolio/portfolio3.webp";
+import portfolio4 from "./assets/proj/1stPortfolio/portfolio4.webp";
+import thrift1 from "./assets/proj/thriftStore/img1.webp";
+import thrift2 from "./assets/proj/thriftStore/img2.webp";
+import thrift3 from "./assets/proj/thriftStore/img3.webp";
+import thrift4 from "./assets/proj/thriftStore/img4.webp";
+import thrift5 from "./assets/proj/thriftStore/img5.webp";
+import time1 from "./assets/proj/timeSched/TSS1.webp";
+import time2 from "./assets/proj/timeSched/TSS2.webp";
+import time3 from "./assets/proj/timeSched/TSS3.webp";
+import cafe1 from "./assets/proj/batCafe/batCafe1.webp";
+import cafe2 from "./assets/proj/batCafe/batCafe2.webp";
+import cafe3 from "./assets/proj/batCafe/batCafe3.webp";
+import cafe4 from "./assets/proj/batCafe/batCafe4.webp";
+import cafe5 from "./assets/proj/batCafe/batCafe5.webp";
+import cafe6 from "./assets/proj/batCafe/batCafe6.webp";
+import cafe7 from "./assets/proj/batCafe/batCafe7.webp";
+import cafe8 from "./assets/proj/batCafe/batCafe8.webp";
+import cafe9 from "./assets/proj/batCafe/batCafe9.webp";
+import cafe10 from "./assets/proj/batCafe/batCafe10.webp";
+import rental1 from "./assets/proj/vehiRental/vRental1.webp";
+import rental2 from "./assets/proj/vehiRental/vRental2.webp";
+import rental3 from "./assets/proj/vehiRental/vRental3.webp";
+import rental4 from "./assets/proj/vehiRental/vRental4.webp";
+import rental5 from "./assets/proj/vehiRental/vRental5.webp";
+import rental6 from "./assets/proj/vehiRental/vRental6.webp";
+import rental7 from "./assets/proj/vehiRental/vRental7.webp";
+import rental8 from "./assets/proj/vehiRental/vRental8.webp";
+import rental9 from "./assets/proj/vehiRental/vRental9.webp";
+import rental10 from "./assets/proj/vehiRental/vRental10.webp";
+
+/* ─── Animation Variants (Memoized) ─────────────────────── */
+const staggerVariants = {
+	hidden: {},
+	visible: { transition: { staggerChildren: 0.04 } },
+};
+const fadeUpVariants = {
+	hidden: { opacity: 0, y: 10 },
+	visible: {
+		opacity: 1,
+		y: 0,
+		transition: { duration: 0.35, ease: "easeOut" },
+	},
+};
 
 /* ─── Image Carousel ─────────────────────────────────────── */
+import { useState } from "react";
+
 const ImageCarousel = ({ images, title, dateBadge }) => {
 	const [currentIndex, setCurrentIndex] = useState(0);
 	const stackSize = Math.min(images.length, 4);
@@ -87,15 +103,19 @@ const ImageCarousel = ({ images, title, dateBadge }) => {
 								glareOpacity={isFront ? 0.15 : 0.04}
 							>
 								<div className="relative w-full h-full">
-									<motion.img
-										key={imgIndex}
-										initial={{ opacity: 0.7 }}
-										animate={{ opacity: 1 }}
-										transition={{ duration: 0.35 }}
+									<img
 										src={images[imgIndex]}
 										alt={`${title} - ${imgIndex + 1}`}
 										loading="lazy"
-										className={`w-full h-full object-cover ${isFront ? "group-hover:scale-105 transition-transform duration-700 ease-out" : ""}`}
+										decoding="async"
+										style={{ 
+											transition: "opacity 0.3s ease",
+											opacity: 1,
+											width: "100%",
+											height: "100%",
+											objectFit: "cover"
+										}}
+										className={isFront ? "group-hover:scale-105 transition-transform duration-700 ease-out" : ""}
 									/>
 									{isFront && (
 										<>
@@ -121,17 +141,18 @@ const ImageCarousel = ({ images, title, dateBadge }) => {
 
 /* ─── Skill Badge ─────────────────────────────────────────── */
 function SkillBadge({ skill }) {
-	const [hovered, setHovered] = useState(false);
 	return (
 		<span
-			onMouseEnter={() => setHovered(true)}
-			onMouseLeave={() => setHovered(false)}
+			onMouseEnter={(e) => {
+				e.currentTarget.style.transform = "scale(1.06) translateY(-2px)";
+				e.currentTarget.style.boxShadow = "0 0 18px 4px rgba(99,102,241,0.28)";
+			}}
+			onMouseLeave={(e) => {
+				e.currentTarget.style.transform = "";
+				e.currentTarget.style.boxShadow = "";
+			}}
 			style={{
 				transition: "transform 0.22s ease, box-shadow 0.3s ease",
-				transform: hovered
-					? "scale(1.06) translateY(-2px)"
-					: "scale(1) translateY(0)",
-				boxShadow: hovered ? "0 0 18px 4px rgba(99,102,241,0.28)" : "none",
 			}}
 			className="px-4 py-1.5 rounded-full text-sm font-medium cursor-default
 				bg-gray-100 dark:bg-gray-800
@@ -158,17 +179,16 @@ function ProjectCard({
 			id={id}
 			initial={{
 				opacity: 0,
-				x: slideFrom === "left" ? -45 : 45,
-				filter: "blur(4px)",
+				x: slideFrom === "left" ? -40 : 40,
 			}}
-			whileInView={{ opacity: 1, x: 0, filter: "blur(0px)" }}
+			whileInView={{ opacity: 1, x: 0 }}
+			whileHover={{ y: -4 }}
 			viewport={{ once: true, amount: 0.12 }}
-			transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+			transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
 			className="rounded-2xl overflow-hidden
 				bg-white dark:bg-gray-900/60
 				border border-gray-200 dark:border-gray-700/60
 				shadow-sm hover:shadow-xl
-				hover:-translate-y-1.5
 				transition-all duration-300 group"
 		>
 			<div className="relative p-3 pb-0">
@@ -213,19 +233,6 @@ function Projects() {
 		offset: ["start center", "end center"],
 	});
 	const scaleY = useTransform(scrollYProgress, [0, 1], [0, 1]);
-
-	const stagger = {
-		hidden: {},
-		visible: { transition: { staggerChildren: 0.07 } },
-	};
-	const fadeUp = {
-		hidden: { opacity: 0, y: 16 },
-		visible: {
-			opacity: 1,
-			y: 0,
-			transition: { duration: 0.55, ease: "easeOut" },
-		},
-	};
 
 	const projects = [
 		{
@@ -338,10 +345,10 @@ function Projects() {
 		<section id="education" className="min-h-screen relative z-0">
 			<div className="min-h-screen flex items-center justify-center px-4 sm:px-6 py-16">
 				<motion.div
-					initial={{ opacity: 0, y: 60 }}
+					initial={{ opacity: 0, y: 30 }}
 					whileInView={{ opacity: 1, y: 0 }}
 					viewport={{ once: true, amount: 0.05 }}
-					transition={{ duration: 0.8, ease: "easeOut" }}
+					transition={{ duration: 0.5, ease: "easeOut" }}
 					className="relative max-w-5xl w-full rounded-3xl bg-white/70 dark:bg-gray-800/70 backdrop-blur-2xl
 						border border-white/50 dark:border-gray-700/50
 						shadow-[0_20px_60px_-15px_rgba(0,0,0,0.25)]
@@ -351,14 +358,14 @@ function Projects() {
 
 					{/* ── Section 1: Education ── */}
 					<motion.div
-						variants={stagger}
+						variants={staggerVariants}
 						initial="hidden"
 						whileInView="visible"
 						viewport={{ once: true }}
 						className="px-7 py-7 sm:px-9 sm:py-8 border-b border-gray-200/40 dark:border-gray-700/40"
 					>
 						<motion.div
-							variants={fadeUp}
+							variants={fadeUpVariants}
 							className="flex items-center gap-2 mb-6"
 						>
 							<span className="w-1.5 h-1.5 rounded-full bg-gray-900 dark:bg-white" />
@@ -369,7 +376,7 @@ function Projects() {
 
 						<div className="flex flex-col lg:flex-row gap-6 lg:gap-10">
 							{/* Degree info */}
-							<motion.div variants={fadeUp} className="flex-1">
+							<motion.div variants={fadeUpVariants} className="flex-1">
 								<div className="flex items-start gap-4">
 									<div className="w-10 h-10 rounded-xl bg-gray-900 dark:bg-white flex items-center justify-center shrink-0 mt-0.5">
 										<FiBookOpen className="w-5 h-5 text-white dark:text-gray-900" />
@@ -391,7 +398,7 @@ function Projects() {
 							</motion.div>
 
 							{/* Focus Areas */}
-							<motion.div variants={fadeUp} className="lg:w-60 shrink-0">
+							<motion.div variants={fadeUpVariants} className="lg:w-60 shrink-0">
 								<p className="text-[10px] font-semibold text-gray-400 dark:text-gray-500 uppercase tracking-widest mb-3">
 									Focus Areas
 								</p>
@@ -417,14 +424,14 @@ function Projects() {
 
 					{/* ── Section 2: Key Skills ── */}
 					<motion.div
-						variants={stagger}
+						variants={staggerVariants}
 						initial="hidden"
 						whileInView="visible"
 						viewport={{ once: true }}
 						className="px-7 py-6 sm:px-9 sm:py-7 border-b border-gray-200/40 dark:border-gray-700/40"
 					>
 						<motion.div
-							variants={fadeUp}
+							variants={fadeUpVariants}
 							className="flex items-center gap-2 mb-4"
 						>
 							<span className="w-1.5 h-1.5 rounded-full bg-gray-900 dark:bg-white" />
@@ -432,7 +439,7 @@ function Projects() {
 								Key Skills Learned
 							</h3>
 						</motion.div>
-						<motion.div variants={fadeUp} className="flex flex-wrap gap-2">
+						<motion.div variants={fadeUpVariants} className="flex flex-wrap gap-2">
 							{[
 								"Object-Oriented Programming",
 								"Database Design",

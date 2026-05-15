@@ -12,14 +12,14 @@ import { useState, useEffect } from "react";
 import { createPortal } from "react-dom";
 import TiltCard from "./components/TiltCard";
 
-import cert1 from "./assets/cert/cert1.jpg";
-import cert2 from "./assets/cert/cert2.jpg";
-import cert3 from "./assets/cert/cert3.jpg";
-import cert4 from "./assets/cert/cert4.jpg";
-import certMicroPBI from "./assets/cert/MicroPBI.jpg";
-import certClaudeInAction from "./assets/cert/ClaudeInAction.jpg";
-import certClaude101 from "./assets/cert/Claude_101.jpg";
-import certClaudeAgent from "./assets/cert/Claude_Agent.jpg";
+import cert1 from "./assets/cert/cert1.webp";
+import cert2 from "./assets/cert/cert2.webp";
+import cert3 from "./assets/cert/cert3.webp";
+import cert4 from "./assets/cert/cert4.webp";
+import certMicroPBI from "./assets/cert/MicroPBI.webp";
+import certClaudeInAction from "./assets/cert/ClaudeInAction.webp";
+import certClaude101 from "./assets/cert/Claude_101.webp";
+import certClaudeAgent from "./assets/cert/Claude_Agent.webp";
 
 /* ─── Data ───────────────────────────────────────────────── */
 const certificates = [

@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
-import portrait from "../assets/me/portrait.png";
+import portrait from "../assets/me/portrait.webp";
 import { useDarkMode } from "../context/DarkModeContext";
 
 function AsciiPortrait({ className = "" }) {
